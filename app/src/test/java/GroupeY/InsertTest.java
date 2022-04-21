@@ -21,7 +21,7 @@ public class InsertTest {
         String [][]data = {{"nom", "josef", "ran", "mattiche"},{"annee","1998","1999","2000"}};
         DataFrame d = new DataFrame(data);
         String [][]dataInsert = {{"sexe","male","male","male"}};
-        d.InsertData(dataInsert);
+        d.InsertColonne(dataInsert);
 
         String [][]dataAfter = {{"nom", "josef", "ran", "mattiche"},{"annee","1998","1999","2000"},{"sexe","male","male","male"}};
         DataFrame dAfter = new DataFrame(dataAfter);
@@ -35,6 +35,7 @@ public class InsertTest {
      */
     public void testMethod2()
     {
+        DataFrame d = new DataFrame("data.txt");
         assertTrue( true );
     }
 }
