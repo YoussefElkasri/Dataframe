@@ -1,9 +1,5 @@
 package GroupeY;
 
-<<<<<<< HEAD
-public class Insertdata {
-    
-=======
 import java.util.*;
 
 public class Insertdata {
@@ -50,5 +46,4 @@ public class Insertdata {
   
     	        
    
->>>>>>> 903e5c35e3ecfdf3a4bb48d65dcb0355ab994ac1
 }

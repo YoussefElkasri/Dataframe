@@ -13,13 +13,6 @@ import java.util.Scanner;
 public class App 
 {
     public static void main( String[] args )
-<<<<<<< HEAD
-    {
-        System.out.println( "Hello World!" );
-        Insertdata id=new Insertdata();
-        Csvtodata ctd=new Csvtodata();
-
-=======
     {   
 
         boolean exit=false;
@@ -102,6 +95,5 @@ public class App
         }
         
         
->>>>>>> 903e5c35e3ecfdf3a4bb48d65dcb0355ab994ac1
     }
 }
