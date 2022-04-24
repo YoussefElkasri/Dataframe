@@ -54,7 +54,9 @@ public class App
                             
                                     String mot="";
                                     for(int l=1;l<data3[0].length();l++){
-                                         mot += data[0].charAt(l);
+                                       
+                                         mot += data3[0].charAt(l);
+                                         
                                     }
                                     
                                     list.add(mot);
@@ -62,15 +64,17 @@ public class App
                                     for (int j=1;j<data3.length-1;j++){
                                             list.add(data3[j]);
                                     }
-                                    for(int l=0;l<data3[0].length()-1;l++){
-                                        mot += data[0].charAt(l);
+                                    mot="";
+                                    for(int l=0;l<data3[data3.length-1].length()-1;l++){
+                                        
+                                        mot += data3[data3.length-1].charAt(l);
                                    }                                 
                                    list.add(mot);
                                     
                                    map.put(cle,list);
         
                                 }    
-                                //nom:[aa,jj,bb];age:[qq,oi,kk]
+                                //prenom:[josef,othmane,ran,emma,marina];nom:[elkasri,mattiche,cheng,patricia,ines];age:[20,21,22,98,19];age2:[20,21,22,09,19]
                                 System.out.println("ajoutez les types de colonnes sous format type1,type2,.. :");
                                 String ty=input.nextLine();
                                 String[] type = ty.split(",");
@@ -80,8 +84,13 @@ public class App
                                 exit_donnee=true;
                                 id=new Insertdata(map);
                                 id.setType(types);
-                                //System.out.println(id.getData());
-                                //System.out.println(id.getHeader());
+                                
+                                 DataFrame datafr = new DataFrame(map);
+                                 datafr.AfficheDataFrame();
+                                 datafr.AfficheLesPrem(2);
+                                 datafr.AfficheLesDer(3);
+                                // System.out.println(id.getHeader());
+                                // System.out.println(id.getData());
                                 
                                               
                     

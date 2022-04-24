@@ -4,9 +4,7 @@ import java.util.*;
 
 public class Insertdata {
 
-    String data;
-   // HashMap<?, ?> datas = new HashMap<Object,Object>();
-    StringBuilder sb=new StringBuilder();
+
     ArrayList<String> types=new ArrayList<String>();
     private HashMap<String, ArrayList<String>> map = new HashMap<String,ArrayList<String>>();
     public Insertdata(HashMap<String, ArrayList<String>> map){
