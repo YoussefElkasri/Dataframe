@@ -72,6 +72,36 @@ public class ArithmetiqueTest
             e.printStackTrace();
         }
     }
+    @Test
+    public void afficheTest(){
+        try{
+            DataFrame d = new DataFrame("src/test/resources/annual_precipitation.csv");
+            d.AfficheDataFrame();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    @Test
+    public void afficheLesPreTest(){
+        System.out.println("############## afficheLesPreTest ##############");
+        try{
+            DataFrame d = new DataFrame("src/test/resources/annual_precipitation.csv");
+            d.AfficheLesPrem(3);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    @Test
+    public void afficheLesDerTest(){
+        try{
+            System.out.println("############## afficheLesDerTest ##############");
+
+            DataFrame d = new DataFrame("src/test/resources/annual_precipitation.csv");
+            d.AfficheLesDer(10);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

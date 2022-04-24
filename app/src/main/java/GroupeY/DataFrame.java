@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.io.PrintStream;
 
 import javax.xml.crypto.Data;
 
@@ -60,7 +61,7 @@ public class DataFrame {
     }
 
     public void InsertColonne(ArrayList<ArrayList<String>> data){
-        
+
     }
 
     public void InsertLigne(String [][] data){
@@ -69,14 +70,51 @@ public class DataFrame {
 
     public void AfficheDataFrame(){
 
+        for(int i=0;i<values.size();i++){
+            System.out.printf("%-30s",header.get(i));
+        }
+        System.out.format("\n");
+        for(int i=0;i<values.get(0).size();i++){
+            for(int j=0;j<values.size();j++){
+                System.out.printf("%-30s", values.get(j).get(i));
+            }
+            System.out.format("\n");
+        }
+
+        System.out.println("Affiche les types");
+        if(type!=null){
+            for(int i=0;i<values.size();i++){
+                System.out.printf("%-30s",type.get(i));
+            }
+            System.out.format("\n");
+        }
+
     }
 
     public void AfficheLesPrem(int n){
-
+        for(int i=0;i<values.size();i++){
+            System.out.printf("%-30s",header.get(i));
+        }
+        System.out.format("\n");
+        for(int i=0;i<n;i++){
+            for(int j=0;j<values.size();j++){
+                System.out.printf("%-30s", values.get(j).get(i));
+            }
+            System.out.format("\n");
+        }
     }
 
     public void AfficheLesDer(int n){
-
+        for(int i=0;i<values.size();i++){
+            System.out.printf("%-30s",header.get(i));
+        }
+        System.out.format("\n");
+        for(int i=0;i<n;i++){
+            for(int j=0;j<values.size();j++){
+                System.out.printf("%-30s", values.get(j).get(this.count(0)-1-i));
+            }
+            System.out.format("\n");
+        }
     }
 
     /**
