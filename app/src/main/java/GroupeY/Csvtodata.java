@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 public class Csvtodata {
 
-	private HashMap<String, ArrayList<String>> map1 = new HashMap<String,ArrayList<String>>();
+	private ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
     private HashMap<Integer, ArrayList<String>> map = new HashMap<Integer,ArrayList<String>>();
     private ArrayList<String> types = new ArrayList<String>();    
     private ArrayList<ArrayList<String>> ar = new ArrayList<ArrayList<String>>();
@@ -112,16 +112,13 @@ public class Csvtodata {
     
     
     //fonction qui retourn les données
-    public HashMap getData() {
-    	HashMap<Integer, ArrayList<String>> map2 = new HashMap<Integer, ArrayList<String>>(map);
+    public ArrayList<ArrayList<String>> getData() {
 		int i =0;
     	for(ArrayList<String> a2 : map.values()){
 			a2.remove(0);
-			map2.put(i,a2);
-			i++;
+			data.add(a2);
 		}
-		System.out.println(map2.get(0).toString());
-    	return map2;
+    	return data;
     }
     
     

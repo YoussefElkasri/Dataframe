@@ -9,25 +9,25 @@ import javax.xml.crypto.Data;
 
 public class DataFrame {
 
-    private HashMap<String, ArrayList<String>> map;
     private ArrayList<String> type;
-    public DataFrame(String [][]data){
-//        InsertData d = new InsertData(data);
-//        map = d.getData();
-//        type = d.getType();
+    private ArrayList<ArrayList<String>> values;
+    public DataFrame(HashMap<String, ArrayList<String>> map){
+        Insertdata d = new Insertdata(map);
+        values = d.getData();
+        type = d.getType();
     }
 
     public DataFrame(String nomFichier) throws FileNotFoundException, IOException{
         Csvtodata d = new Csvtodata(nomFichier);
-        map = d.getData();
+        values = d.getData();
         type = d.getType();
 
     }
 
-    public DataFrame(HashMap<String, ArrayList<String>> map, ArrayList<String> type ){
+    /*public DataFrame(HashMap<String, ArrayList<String>> map, ArrayList<String> type ){
         this.map = map;
         this.type = type;
-    }
+    }*/
 
 
     public void InsertColonne(String [][] data){
@@ -58,12 +58,12 @@ public class DataFrame {
         switch (type.get(ind)){
             
             case "Float" :  
-                for(String s : map.get(ind)){
+                for(String s : values.get(ind)){
                     sum = Float.parseFloat(s) + sum;
                 }
                 break;
             case "Integer" :  
-                for(String s : map.get(ind)){
+                for(String s : values.get(ind)){
                     sum = Integer.parseInt(s) + sum;
                 }
                 break;
@@ -80,24 +80,24 @@ public class DataFrame {
      */
     public float moyenne(int ind){
         float s = sum(ind);
-        return s/map.get(ind).size();
+        return s/values.get(ind).size();
     }
 
     /**
      * foction qui calcule le minium d'une colonne
      */
     public float min(int ind){
-        float min  = Float.parseFloat(map.get(ind).get(0));
+        float min  = Float.parseFloat(values.get(ind).get(0));
         switch (type.get(ind)){
             
             case "Float" :  
-                for(String s : map.get(ind)){
+                for(String s : values.get(ind)){
                    
                     return Math.min(Float.parseFloat(s), min);
                 }
                 break;
             case "Integer" :  
-                for(String s : map.get(ind)){
+                for(String s : values.get(ind)){
                     
                     return Math.min(Integer.parseInt(s),min);
                 }
@@ -114,16 +114,16 @@ public class DataFrame {
      * fonction qui calcule le max d'une colonne
      */
     public float max(int ind){
-        float max = Float.parseFloat(map.get(ind).get(0));
+        float max = Float.parseFloat(values.get(ind).get(0));
         switch (type.get(ind)){
             
             case "Float" :  
-                for(String s : map.get(ind)){
+                for(String s : values.get(ind)){
                     max = Math.max(Float.parseFloat(s), max);
                 }
                 break;
             case "Integer" :  
-                for(String s : map.get(ind)){
+                for(String s : values.get(ind)){
                     max = Math.max(Integer.parseInt(s),max);
                 }
                 break;
@@ -138,7 +138,7 @@ public class DataFrame {
      * fonction qui calcule le nombre d'element dans une colonne
      */
     public int count(int ind){
-        return map.get(ind).size();
+        return values.get(ind).size();
     }
 
     /**
@@ -150,14 +150,14 @@ public class DataFrame {
             
             case "Float" :  
                 int i =0;
-                for(String s : map.get(ind)){
+                for(String s : values.get(ind)){
                     fl[i] = Math.abs(Float.parseFloat(s));
                     i++;
                 }
                 break;
             case "Integer" :  
                 int j =0;
-                for(String s : map.get(ind)){
+                for(String s : values.get(ind)){
                     fl[j] = Math.abs(Integer.parseInt(s));
                     j++;
                 }
@@ -167,5 +167,9 @@ public class DataFrame {
                 break;
     }
     return fl;
-}
+    }
+
+    /*public DataFrame creationcol(String[] st){
+
+    }*/
 }
