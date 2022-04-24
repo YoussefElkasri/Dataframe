@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.*;
 public class Csvtodata {
 
-	private String values[];
 	private HashMap<String, ArrayList<String>> map1 = new HashMap<String,ArrayList<String>>();
     private HashMap<Integer, ArrayList<String>> map = new HashMap<Integer,ArrayList<String>>();
     private ArrayList<String> types = new ArrayList<String>();    
@@ -49,10 +48,12 @@ public class Csvtodata {
     	         * On stocke les types de chaque colonne dans un arraylist
     	         * le type de chaque colonne est déterminé par le type du premier element de celle-ci
     	         */
-    	        
-    	       ArrayList<String> listss = map.get(1);
+    	       
+				for(int i =0; i< ar.get(0).size(); i++) {
+
+				
+    	        String value = map.get(i).get(1);
     	        	
-    	        	for(String value : listss) {
     	                	if(isInt(value)) {
     	                		types.add("Integer");
     	   
@@ -70,7 +71,8 @@ public class Csvtodata {
         	                		}
         	                	}
     	                	}
-    	                }
+    	                
+					}
     }
 
     	        
@@ -110,9 +112,15 @@ public class Csvtodata {
     
     
     //fonction qui retourn les données
-    public Map getData() {
+    public HashMap getData() {
     	HashMap<Integer, ArrayList<String>> map2 = new HashMap<Integer, ArrayList<String>>(map);
-    	map2.remove(0);
+		int i =0;
+    	for(ArrayList<String> a2 : map.values()){
+			a2.remove(0);
+			map2.put(i,a2);
+			i++;
+		}
+		System.out.println(map2.get(0).toString());
     	return map2;
     }
     

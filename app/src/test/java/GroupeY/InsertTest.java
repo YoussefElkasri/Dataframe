@@ -3,6 +3,8 @@ package GroupeY;
 import org.junit.*;
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,8 +34,10 @@ public class InsertTest {
 
     /**
      * Rigourous Test :-)
+     * @throws IOException
+     * @throws FileNotFoundException
      */
-    public void testMethod2()
+    public void testMethod2() throws FileNotFoundException, IOException
     {
         DataFrame d = new DataFrame("data.txt");
         assertTrue( true );
