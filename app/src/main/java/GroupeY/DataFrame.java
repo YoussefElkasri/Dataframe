@@ -32,10 +32,35 @@ public class DataFrame {
         this.type = type;
         this.header = header;
     }
+    @Override
+    public boolean equals(Object object){
+        DataFrame d = (DataFrame) object;
+        if(this==null && d==null){
+            return true;
+        }
+        if(this==null && d!=null){
+            return false;
+        }
+        if(this!=null && d==null){
+            return false;
+        }
+        for(int i=0;i<header.size();i++){
+            if(!this.header.get(i).equals(d.getHeader().get(i))){
+                return false;
+            }
+        }
+        for(int i=0;i<header.size();i++){
+            for(int j=0;i<this.values.get(i).size();j++){
+                if(!this.values.get(i).get(j).equals(d.getValues().get(i).get(j))){
+                    return false;
+                }
+            }   
+        }
+        return true;
+    }
 
-
-    public void InsertColonne(String [][] data){
-
+    public void InsertColonne(ArrayList<ArrayList<String>> data){
+        
     }
 
     public void InsertLigne(String [][] data){
@@ -97,13 +122,13 @@ public class DataFrame {
             case "Float" :  
                 for(String s : values.get(ind)){
                    
-                    return Math.min(Float.parseFloat(s), min);
+                    min = Math.min(Float.parseFloat(s), min);
                 }
                 break;
             case "Integer" :  
                 for(String s : values.get(ind)){
                     
-                    return Math.min(Integer.parseInt(s),min);
+                    min = Math.min(Integer.parseInt(s),min);
                 }
                 break;
             default :
@@ -177,6 +202,13 @@ public class DataFrame {
         return this.header;
     }
 
+    public ArrayList<String> getType(){
+        return this.type;
+    }
+
+    public ArrayList<ArrayList<String>> getValues(){
+        return this.values;
+    }
     /**
      * creation d'un nouveau dataframe a partie de noms de colonnes
      */
