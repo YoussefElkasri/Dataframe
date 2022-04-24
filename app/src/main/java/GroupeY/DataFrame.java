@@ -11,23 +11,27 @@ public class DataFrame {
 
     private ArrayList<String> type;
     private ArrayList<ArrayList<String>> values;
+    private ArrayList<String> header;
     public DataFrame(HashMap<String, ArrayList<String>> map){
         Insertdata d = new Insertdata(map);
         values = d.getData();
         type = d.getType();
+        header = d.getHeader();
     }
 
     public DataFrame(String nomFichier) throws FileNotFoundException, IOException{
         Csvtodata d = new Csvtodata(nomFichier);
         values = d.getData();
         type = d.getType();
+        header = d.getHeader();
 
     }
 
-    /*public DataFrame(HashMap<String, ArrayList<String>> map, ArrayList<String> type ){
-        this.map = map;
+    public DataFrame(HashMap<Integer, ArrayList<String>> map, ArrayList<String> type, ArrayList<String> header ){
+        this.values = new ArrayList<ArrayList<String>>(map.values());
         this.type = type;
-    }*/
+        this.header = header;
+    }
 
 
     public void InsertColonne(String [][] data){
@@ -169,7 +173,57 @@ public class DataFrame {
     return fl;
     }
 
-    /*public DataFrame creationcol(String[] st){
+    public ArrayList<String> getHeader(){
+        return this.header;
+    }
 
-    }*/
+    /**
+     * creation d'un nouveau dataframe a partie de noms de colonnes
+     */
+    public DataFrame CreationFromCol(String ... noms){
+        HashMap<Integer, ArrayList<String>> map = new HashMap<Integer, ArrayList<String>>();
+        ArrayList<String> type = new ArrayList<String>();
+        ArrayList<String> header = new ArrayList<String>();
+        int j =0;
+        int counter =0;
+        for(String s : this.header){
+            for(int i =0 ; i<noms.length; i++){
+                if(s.equals(noms[i])){
+                    map.put(j, values.get(counter));
+                    type.add(this.type.get(counter));
+                    header.add(this.header.get(counter));
+                    j++;
+                }
+            }
+            counter++;
+        }
+        return new DataFrame(map,type, header);
+
+    }
+
+    /**
+     * creation d'un nouveau dataframe a partires d'indices de lignes
+     */
+    
+    public DataFrame CreationFromline(int ... i){
+        HashMap<Integer, ArrayList<String>> map = new HashMap<Integer, ArrayList<String>>();
+        ArrayList<String> type = new ArrayList<String>();
+        ArrayList<String> header = new ArrayList<String>();
+
+
+        for(int j=0; j<this.header.size(); j++){
+            ArrayList<String> val =   new ArrayList<String>();
+            for(int in : i){
+                val.add(values.get(j).get(in));
+            }
+            map.put(j, val);
+        }   
+
+
+        type = this.type;
+        header = this.header;
+        return new DataFrame(map,type, header);
+
+    }
+
 }

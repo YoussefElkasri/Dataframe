@@ -73,8 +73,20 @@ public class Csvtodata {
     	                	}
     	                
 					}
+				
+
     }
 
+
+	    //fonction qui retourne le nom de chaque colonne
+		public ArrayList<String> getHeader(){
+			ArrayList<String> header = new ArrayList<String>();
+			for(ArrayList<String> ar : map.values()){
+				header.add(ar.get(0));
+			}
+			return header;
+		}
+		 
     	        
     	        
     //fonction qui vérfie si l'element est un int
@@ -113,10 +125,12 @@ public class Csvtodata {
     
     //fonction qui retourn les données
     public ArrayList<ArrayList<String>> getData() {
+		ArrayList<String> a3;
 		int i =0;
     	for(ArrayList<String> a2 : map.values()){
-			a2.remove(0);
-			data.add(a2);
+			a3 = new ArrayList<>(a2);
+			a3.remove(0);
+			data.add(a3);
 		}
     	return data;
     }
@@ -128,9 +142,5 @@ public class Csvtodata {
     }
     
     
-    //fonction qui retourne le nom de chaque colonne
-    public ArrayList<String> nomColonne(){
-    	return this.map.get(0);
-    }
-     
+
 }
