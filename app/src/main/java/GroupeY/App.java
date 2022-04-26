@@ -47,10 +47,8 @@ public class App
                                 int p=0;
                                 Scanner input=new Scanner(System.in);                                                
                                 String to=input.nextLine();
-                                  
                                 String[] data = to.split(";");
                                 for (String tmp : data) {
-
                                     list=new ArrayList<String>();;
                                     String[] data2 = tmp.split(":");
                                     String cle=data2[0];
