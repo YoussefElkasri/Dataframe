@@ -38,19 +38,18 @@ public class InsertTest {
         map.put("annee",list2);
 
 
+        list3.add("24");
         list3.add("23");
-        list3.add("53");
-        list3.add("35");
+        list3.add("22");
         map.put("age",list3);
 
         ArrayList<String> types = new ArrayList<String>();
         types.add("String");
         types.add("Integer");
-
-        String [][]data = {{"nom", "josef", "ran", "mattiche"},{"annee","1998","1999","2000"}};
+        types.add("Integer");
         DataFrame d = new DataFrame(map);
         try{
-            DataFrame dAfter = new DataFrame("/Users/cr/M1/DevOp/Dataframe/data.csv");
+            DataFrame dAfter = new DataFrame("src/test/resources/data.csv");
 
             for(int i=0;i<d.getHeader().size();i++){
                 //System.out.println("d : "+d.getHeader().get(i));
