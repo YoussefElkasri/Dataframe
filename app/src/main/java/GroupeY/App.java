@@ -2,6 +2,8 @@ package GroupeY;
 
 
 import java.io.Console;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +17,7 @@ import java.util.Iterator;
  */
 public class App 
 {
-    public static void main( String[] args )
+    public static void main( String[] args ) throws FileNotFoundException, IOException
     {   
 
         boolean exit=false;
@@ -30,12 +32,20 @@ public class App
         //Insertdata Insdata=new Insertdata();
         System.out.println( "menu !" );
         System.out.println( "b- ajouter data !" );
+        System.out.println( "n- cree un dataframe a partire d'un csv !");
         System.out.println( "q- quitter !" );
         Scanner sc=new Scanner(System.in);
         int i=0;
         while(!exit){
             String t=sc.nextLine();
+
+                if(t.toString().equals("n")){
+                    System.out.println("donner le path vers le csv");
+                    DataFrame df = new DataFrame(sc.nextLine());
+
+                }
                 if(t.toString().equals("q")){
+
                     exit=true;
                     System.out.println("exit");
                 }
