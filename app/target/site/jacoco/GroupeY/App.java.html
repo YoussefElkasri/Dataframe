@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>App.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">GroupeY</a> &gt; <span class="el_source">App.java</span></div><h1>App.java</h1><pre class="source lang-java linenums">package GroupeY;
+
+
+import java.io.Console;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.Iterator;
+
+/**
+ * Hello world!
+ *
+ */
+<span class="nc" id="L18">public class App </span>
+{
+    public static void main( String[] args ) throws FileNotFoundException, IOException
+    {   
+/*
+        boolean exit=false;
+        boolean exit_colonne=false;
+        boolean exit_donnee=false;
+       
+        Insertdata id=new Insertdata();
+        ArrayList&lt;String&gt; list=new ArrayList&lt;String&gt;();
+        ArrayList&lt;ArrayList&lt;String&gt;&gt; list2=new ArrayList&lt;ArrayList&lt;String&gt;&gt;();
+        ArrayList&lt;String&gt; types = new ArrayList&lt;String&gt;();
+        HashMap&lt;Integer, ArrayList&lt;String&gt;&gt; map = new HashMap&lt;Integer,ArrayList&lt;String&gt;&gt;();
+        //Insertdata Insdata=new Insertdata();
+        System.out.println( &quot;menu !&quot; );
+        System.out.println( &quot;b- ajouter data !&quot; );
+        System.out.println( &quot;n- cree un dataframe a partire d'un csv !&quot;);
+        System.out.println( &quot;q- quitter !&quot; );
+        Scanner sc=new Scanner(System.in);
+        int i=0;
+        while(!exit){
+            String t=sc.nextLine();
+
+                if(t.toString().equals(&quot;n&quot;)){
+                    System.out.println(&quot;donner le path vers le csv&quot;);
+                    DataFrame df = new DataFrame(sc.nextLine());
+
+                }
+                if(t.toString().equals(&quot;q&quot;)){
+
+                    exit=true;
+                    System.out.println(&quot;exit&quot;);
+                }
+                if(t.toString().equals(&quot;b&quot;)){
+                  
+                    while(!exit_donnee){
+                        System.out.println(&quot;Add donnee sous format : nomCol1:[data1..dataN];nomCol2:[data1..dataN].. :&quot;);
+                                   
+                                int p=0;
+                                Scanner input=new Scanner(System.in);                                                
+                                String to=input.nextLine();
+                                String[] data = to.split(&quot;;&quot;);
+                                for (String tmp : data) {
+                                    list=new ArrayList&lt;String&gt;();;
+                                    String[] data2 = tmp.split(&quot;:&quot;);
+                                    String cle=data2[0];
+                                    list.add(cle);
+                                    String[] data3 = data2[1].split(&quot;,&quot;);
+                            
+                                    String mot=&quot;&quot;;
+                                    for(int l=1;l&lt;data3[0].length();l++){
+                                       
+                                         mot += data3[0].charAt(l);
+                                         
+                                    }
+                                    
+                                    list.add(mot);
+                                  
+                                    for (int j=1;j&lt;data3.length-1;j++){
+                                            list.add(data3[j]);
+                                    }
+                                    mot=&quot;&quot;;
+                                    for(int l=0;l&lt;data3[data3.length-1].length()-1;l++){
+                                        
+                                        mot += data3[data3.length-1].charAt(l);
+                                   }                                 
+                                   list.add(mot);
+                                   System.out.println(&quot;cle  &quot;+cle+&quot;  list :&quot;+list.toString());
+                                   map.put(p,list);  
+                                   p++; 
+        
+                                }    
+                                //prenom:[josef,othmane,ran,emma];nom:[elkasri,mattiche,cheng,patricia];age:[20,21,22,19];age2:[20,21,22,09];age3:[20,21,22,09];xss:[smsm,ss,ss,w]
+                                System.out.println(&quot;ajoutez les types de colonnes sous format type1,type2,.. :&quot;);
+                                String ty=input.nextLine();
+                                String[] type = ty.split(&quot;,&quot;);
+                                for (String tmp : type) {
+                                    types.add(tmp);
+                                }
+                               
+                                exit_donnee=true;
+                                id=new Insertdata(map);
+                                id.setType(types);
+                                
+                                 DataFrame datafr = new DataFrame(map);
+                                 System.out.println(id.getHeader().toString());
+                                 System.out.println(id.getData());
+                                 datafr.AfficheDataFrame();
+                                 //datafr.AfficheLesPrem(3);
+                                 //datafr.AfficheLesDer(3);
+                                 System.out.println(&quot;----------&quot;);
+                                 list=new ArrayList&lt;String&gt;();
+                                 list.add(&quot;test&quot;);
+                                 list.add(&quot;1&quot;);
+                                 //list2.add(list);
+                                 //list=new ArrayList&lt;String&gt;();
+                                 list.add(&quot;2&quot;);
+                                 //list2.add(list);
+                                 //list=new ArrayList&lt;String&gt;();
+                                 list.add(&quot;3&quot;);
+                                 //list2.add(list);
+                                 //list=new ArrayList&lt;String&gt;();
+                                 list.add(&quot;4&quot;);
+                                 //list2.add(list);
+                                 //list=new ArrayList&lt;String&gt;();
+                                 //list.add(&quot;5&quot;);
+                                 //list2.add(list);
+                                 //list=new ArrayList&lt;String&gt;();
+                                 //list.add(&quot;6&quot;);
+                                 list2.add(list);
+                                 
+                                 HashMap&lt;Integer, ArrayList&lt;String&gt;&gt; hmap = new HashMap&lt;Integer,ArrayList&lt;String&gt;&gt;();
+                                 hmap.put(6,list);
+                                 datafr.InsertColonne(hmap, types);
+                                 datafr.AfficheDataFrame();
+                                //System.out.println(id.getHeader());
+                                // System.out.println(id.getData());
+                                
+                                              
+                    
+                    }
+                     
+                }
+               
+            
+            
+
+        }
+        
+        */
+<span class="nc" id="L149">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
