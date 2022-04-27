@@ -11,14 +11,13 @@ import java.util.ArrayList;
 
 
 public class InsertTest {
+
     /**
-     * Create the test case
-     *
-     * @param testName name of the test case
+     * Comparez les deux méthodes de construction pour voir si elles sont identiques
+     * Un est ajouté manuellement et un autre est ajouté via un fichier csv.
+     * @result Valid si elles sont identique
      */
-    /**
-     * @return the suite of tests being tested
-     */
+
 @Test
     public void testDeuxConstruicteur(){
         HashMap<Integer, ArrayList<String>> map = new HashMap<Integer,ArrayList<String>>();
@@ -52,7 +51,6 @@ public class InsertTest {
         DataFrame d = new DataFrame(map);
         try{
             DataFrame dAfter = new DataFrame("src/test/resources/data.csv");
-
             assertEquals("dataAfter insert", d, dAfter);
         }catch (Exception e) {
             e.printStackTrace();
@@ -63,10 +61,16 @@ public class InsertTest {
     }
 
     /**
-     * Rigourous Test :-)
      * @throws IOException
      * @throws FileNotFoundException
      */
+
+    /**
+     * Insert une ligne dans un dataframe
+     * Comparez avec un autre fichier complet avec cette ligne déjà ajoutée
+     * @result Valid si elles sont identique
+    **/
+
     @Test
     public void testInsertLigne() throws FileNotFoundException, IOException
     {
@@ -93,6 +97,13 @@ public class InsertTest {
         
        // assertTrue( true );
     }
+
+    /**
+     * Insert une colonne dans un dataframe
+     * Comparez avec un autre fichier complet avec cette colonne déjà ajoutée
+     * @result Valid si elles sont identique
+    **/
+
     @Test
         public void testInsertColonne() throws FileNotFoundException, IOException
     {
@@ -118,6 +129,11 @@ public class InsertTest {
         
     }
 
+    /**
+     * Insert une colonne dans un dataframe mais avec une mal header
+     * Comparez avec un autre fichier complet avec cette colonne déjà ajoutée
+     * @result Valid si elles ne sont pas identique
+    **/
     @Test
         public void testNegInsertColonne() throws FileNotFoundException, IOException
     {
@@ -142,6 +158,12 @@ public class InsertTest {
         }
         
     }
+
+    /**
+     * Insert une colonne dans un dataframe mais avec une mal donne
+     * Comparez avec un autre fichier complet avec cette colonne déjà ajoutée
+     * @result Valid si elles ne sont pas identique
+    **/
 
     @Test
     public void testNegInsertColonne2() throws FileNotFoundException, IOException
@@ -168,6 +190,12 @@ public class InsertTest {
         
     }
 
+    /**
+     * test pour le fonction equals qui est override dans le DataFrame
+     * Comparez l'objet null avec un instance
+     * @result Valid si elles ne sont pas identique
+    **/
+
     @Test
         public void testNull() throws FileNotFoundException, IOException
     {
@@ -182,6 +210,11 @@ public class InsertTest {
         
     }
 
+    /**
+     * test pour le fonction equals qui est override dans le DataFrame
+     * Comparez s'ils ont un nombre différent de lignes ou de colonnes. 
+     * @result Valid si elles ne sont pas identique
+    **/
 
     @Test
         public void testNeg() throws FileNotFoundException, IOException

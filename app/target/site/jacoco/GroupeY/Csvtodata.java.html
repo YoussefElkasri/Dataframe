@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Csvtodata.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">GroupeY</a> &gt; <span class="el_source">Csvtodata.java</span></div><h1>Csvtodata.java</h1><pre class="source lang-java linenums">package GroupeY;
+
+import java.io.*;
+import java.util.*;
+public class Csvtodata {
+
+<span class="fc" id="L7">	private ArrayList&lt;ArrayList&lt;String&gt;&gt; data = new ArrayList&lt;ArrayList&lt;String&gt;&gt;();</span>
+<span class="fc" id="L8">    private HashMap&lt;Integer, ArrayList&lt;String&gt;&gt; map = new HashMap&lt;Integer,ArrayList&lt;String&gt;&gt;();</span>
+<span class="fc" id="L9">    private ArrayList&lt;String&gt; types = new ArrayList&lt;String&gt;();    </span>
+<span class="fc" id="L10">    private ArrayList&lt;ArrayList&lt;String&gt;&gt; ar = new ArrayList&lt;ArrayList&lt;String&gt;&gt;();</span>
+    
+    
+    
+    /*Constructeur de CSVtodata
+     * 
+     * On lit un fichier csv graçe à son path 
+     * Et on stock les données dans une hashmap qui as comme key le numéro de colonne et value la ligne entant qu'arraylist de string
+     */
+    
+<span class="fc" id="L20">    public Csvtodata(String nom) throws FileNotFoundException, IOException{</span>
+<span class="fc" id="L21">    	String l = &quot;&quot;;</span>
+
+    	        try{
+<span class="fc" id="L24">    	            BufferedReader reader = new BufferedReader(new FileReader(nom));</span>
+<span class="fc" id="L25">    	            int i = 0;</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">    	            while((l = reader.readLine())!= null){</span>
+<span class="fc" id="L27">    	                String[] values = l.split(&quot;,&quot;);</span>
+<span class="fc" id="L28">    	                ar.add( new ArrayList&lt;String&gt;(Arrays.asList(values)));</span>
+<span class="fc" id="L29">    	                }</span>
+    	           
+<span class="fc" id="L31">    	            int j =0;</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">    	            while(j &lt; ar.get(0).size()) {</span>
+<span class="fc" id="L33">    	            	ArrayList&lt;String&gt; inte = new ArrayList&lt;String&gt;();</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">    	            for(ArrayList&lt;String&gt; st : ar) {</span>
+<span class="fc" id="L35">    	            	inte.add(st.get(j));</span>
+<span class="fc" id="L36">    	            }</span>
+<span class="fc" id="L37">    	            map.put(i, inte);</span>
+<span class="fc" id="L38">    	            i++;</span>
+<span class="fc" id="L39">    	            j++;</span>
+<span class="fc" id="L40">    	           }</span>
+<span class="nc" id="L41">    	        }catch (Exception e) {</span>
+<span class="nc" id="L42">    	            e.printStackTrace();</span>
+<span class="fc" id="L43">    	        }</span>
+
+    	        
+    
+    	        /**
+    	         * On stocke les types de chaque colonne dans un arraylist
+    	         * le type de chaque colonne est déterminé par le type du premier element de celle-ci
+    	         */
+    	       
+<span class="fc bfc" id="L52" title="All 2 branches covered.">				for(int i =0; i&lt; ar.get(0).size(); i++) {</span>
+
+				
+<span class="fc" id="L55">    	        String value = map.get(i).get(1);</span>
+    	        	
+<span class="fc bfc" id="L57" title="All 2 branches covered.">    	                	if(isInt(value)) {</span>
+<span class="fc" id="L58">    	                		types.add(&quot;Integer&quot;);</span>
+    	   
+    	                	}else {
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        	                	if(isFloat(value)) {</span>
+<span class="fc" id="L62">        	                		types.add(&quot;Float&quot;);</span>
+
+        	                	}else {
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        	                		if(isBool(value)) {</span>
+<span class="nc" id="L66">        	                			types.add(&quot;boolean&quot;);</span>
+
+        	                		}else{
+<span class="fc" id="L69">        	                			types.add(&quot;String&quot;);</span>
+
+        	                		}
+        	                	}
+    	                	}
+    	                
+					}
+				
+
+<span class="fc" id="L78">    }</span>
+
+
+	    //fonction qui retourne le nom de chaque colonne
+		public ArrayList&lt;String&gt; getHeader(){
+<span class="fc" id="L83">			ArrayList&lt;String&gt; header = new ArrayList&lt;String&gt;();</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">			for(ArrayList&lt;String&gt; ar : map.values()){</span>
+<span class="fc" id="L85">				header.add(ar.get(0));</span>
+<span class="fc" id="L86">			}</span>
+<span class="fc" id="L87">			return header;</span>
+		}
+		 
+    	        
+    	        
+    //fonction qui vérfie si l'element est un int
+     private boolean isInt(String str) {
+
+        try {
+<span class="fc" id="L96">            Integer.parseInt(str);</span>
+<span class="fc" id="L97">        } catch (NumberFormatException e) {</span>
+<span class="fc" id="L98">            return false;</span>
+<span class="fc" id="L99">        }</span>
+<span class="fc" id="L100">        return true;</span>
+    }
+    
+    
+     //fonction qui vérfie si l'element est float
+    private boolean isFloat(String str) {
+
+        try {
+<span class="fc" id="L108">           Float.parseFloat(str);</span>
+<span class="fc" id="L109">        } catch (NumberFormatException e) {</span>
+<span class="fc" id="L110">            return false;</span>
+<span class="fc" id="L111">        }</span>
+<span class="fc" id="L112">        return true;</span>
+    }
+    	
+    
+    //fonction qui vérifie si l'element est bool
+    private boolean isBool(String str) {
+<span class="pc bpc" id="L118" title="2 of 4 branches missed.">    	if(str.toLowerCase().equals(&quot;true&quot;) || str.toLowerCase().equals(&quot;false&quot;)) {</span>
+<span class="nc" id="L119">    		return true;</span>
+    	}else {
+<span class="fc" id="L121">    		return false;</span>
+    	}
+    }
+    
+    
+    //fonction qui retourn les données
+    public ArrayList&lt;ArrayList&lt;String&gt;&gt; getData() {
+		ArrayList&lt;String&gt; a3;
+<span class="fc" id="L129">		int i =0;</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">    	for(ArrayList&lt;String&gt; a2 : map.values()){</span>
+<span class="fc" id="L131">			a3 = new ArrayList&lt;&gt;(a2);</span>
+<span class="fc" id="L132">			a3.remove(0);</span>
+<span class="fc" id="L133">			data.add(a3);</span>
+<span class="fc" id="L134">		}</span>
+<span class="fc" id="L135">    	return data;</span>
+    }
+    
+    
+    //fonction qui retourn les types de chaque colonne
+    public ArrayList&lt;String&gt; getType(){
+<span class="fc" id="L141">    	return this.types;</span>
+    }
+    
+    
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
