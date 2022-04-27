@@ -4,9 +4,10 @@ import java.util.*;
 import java.util.Map.Entry;
 
 
-/** Class Insertdata 
-     * La premiere methode d'insertion des donnees 
-     */
+/** 
+* Class Insertdata 
+* La premiere methode d'insertion des donnees 
+*/
 
 public class Insertdata {
 
@@ -21,14 +22,6 @@ public class Insertdata {
      */
     public Insertdata(HashMap<Integer, ArrayList<String>> map){
         this.map = map;
-    }
-
-    /** Constructeur de Insertdata 2
-     * ce constructeur est fait pour initialiser InsertData dans le main 
-     * @param : il prend aucun parametre
-     */
-    public Insertdata(){
-        
     }
 
 
@@ -50,17 +43,16 @@ public class Insertdata {
     /** recuperer les nom de colonnes de dataframe
      */
     public ArrayList<String> getHeader(){
-        //ArrayList<String> header = new ArrayList<String>();
         for(ArrayList<String> ar : map.values()){
             header.add(ar.get(0));
         }
         return this.header;
     }
     
-     /** recuperer les donnees de dataframe
-      * @param : elle prend aucun parametre 
-     * @return : elle retourne une arraylist de donnees 
-     */
+    /** recuperer les donnees de dataframe
+    * @param : elle prend aucun parametre 
+    * @return : elle retourne une arraylist de donnees 
+    */
     public ArrayList<ArrayList<String>> getData() {
         ArrayList<String> list;
         int i =0;
