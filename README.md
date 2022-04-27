@@ -7,7 +7,7 @@
 ![Branches](.github/badges/branches.svg)
 
 
-Dans cette page on va essayer de valoriser notre bibliotheque qui est developpé par un groupe des etudiants de l'UGA qui sont : <br />
+Dans cette page on va essayer de valoriser notre bibliotheque qui est developpé par un groupe d'étudiants de l'UGA qui sont : <br />
 ### <i> El kasri Youssef </i>
 ### <i> Mattiche Othmane </i>
 ### <i> Ran Cheng </i>
@@ -15,7 +15,8 @@ Dans cette page on va essayer de valoriser notre bibliotheque qui est developpé
 ## Choix d'outils
   <ul><li>Github : Pour le dépot distant </li>
   <li>Maven : pour automatiser les tâches de compilation, tests unitaires et déploiement des applications qui composent le projet </li>
-  <li>Jacoco : pour le code coverage </li>
+  <li>Docker hub : pour stocker les images de manière automatique à chaque fois qu'on fait un push dans la branche main </li>
+  <li>Jacoco : pour le code coverage, qui se change automatiquement après chaque push dans la branche main </li>
   <li>Code factor(REVUE DE CODE AUTOMATISÉE POUR GIT) : nous avons l'utilisé pour avoir une bonne qualité de code </li></ul>
 
 ## Fonctionnalités de la bibliotheque 
@@ -48,7 +49,7 @@ Dans cette page on va essayer de valoriser notre bibliotheque qui est developpé
     <li>L'image docker sera mise à jour  </li>
     <li>Calcule de la couverture du code</li></ul>
 
-## Docker
+## Docker HUB
   Aprés chaque push dans le main une image docker sera automatiquement mise à jour <br />
   [Lien de dépot de docker](https://hub.docker.com/repository/docker/19982001/dataframe_2022)
   
