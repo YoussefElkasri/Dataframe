@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="7" failures="0" name="GroupeY.InsertTest" time="0.025" errors="0" skipped="0">
+<testsuite tests="7" failures="0" name="GroupeY.InsertTest" time="0.023" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.15+10-LTS"/>
@@ -60,11 +60,11 @@
     <property name="java.vendor.version" value="Zulu11.56+19-CA"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="GroupeY.InsertTest" name="testInsertColonne" time="0.015"/>
-  <testcase classname="GroupeY.InsertTest" name="testNeg" time="0.001"/>
-  <testcase classname="GroupeY.InsertTest" name="testDeuxConstruicteur" time="0.003"/>
-  <testcase classname="GroupeY.InsertTest" name="testNull" time="0.001"/>
-  <testcase classname="GroupeY.InsertTest" name="testInsertLigne" time="0.004"/>
+  <testcase classname="GroupeY.InsertTest" name="testInsertColonne" time="0.016"/>
+  <testcase classname="GroupeY.InsertTest" name="testNeg" time="0.002"/>
+  <testcase classname="GroupeY.InsertTest" name="testDeuxConstruicteur" time="0.001"/>
+  <testcase classname="GroupeY.InsertTest" name="testNull" time="0"/>
+  <testcase classname="GroupeY.InsertTest" name="testInsertLigne" time="0"/>
   <testcase classname="GroupeY.InsertTest" name="testNegInsertColonne2" time="0"/>
-  <testcase classname="GroupeY.InsertTest" name="testNegInsertColonne" time="0.001"/>
+  <testcase classname="GroupeY.InsertTest" name="testNegInsertColonne" time="0.004"/>
 </testsuite>
