@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: GroupeY.InsertTest
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.166 sec
+=======
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.169 sec
+>>>>>>> main
