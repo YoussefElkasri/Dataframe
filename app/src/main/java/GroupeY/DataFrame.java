@@ -7,12 +7,17 @@ import java.util.HashMap;
 import java.io.PrintStream;
 
 
+
 public class DataFrame {
 
     private ArrayList<String> type;
     private ArrayList<ArrayList<String>> values;
     private ArrayList<String> header;
 
+    /*Constructeur de DataFrame
+     * 
+     * on prend en parametre une hashmap qui prend comme key le numéro de colonne et value la ligne de arraylist de string
+     */
     public DataFrame(HashMap<Integer, ArrayList<String>> map){
         Insertdata d = new Insertdata(map);
         values = d.getData();
