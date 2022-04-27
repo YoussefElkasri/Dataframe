@@ -3,48 +3,65 @@
 import java.util.*;
 import java.util.Map.Entry;
 
+
+/** 
+* Class Insertdata 
+* La premiere methode d'insertion des donnees 
+*/
+
 public class Insertdata {
 
 
-<span class="pc" id="L9">    ArrayList&lt;String&gt; types=new ArrayList&lt;String&gt;();</span>
-<span class="pc" id="L10">    ArrayList&lt;ArrayList&lt;String&gt;&gt; data=new ArrayList&lt;ArrayList&lt;String&gt;&gt;();</span>
-<span class="pc" id="L11">    ArrayList&lt;String&gt; header=new ArrayList&lt;String&gt;();</span>
-<span class="pc" id="L12">    private HashMap&lt;Integer, ArrayList&lt;String&gt;&gt; map = new HashMap&lt;Integer,ArrayList&lt;String&gt;&gt;();</span>
-<span class="fc" id="L13">    public Insertdata(HashMap&lt;Integer, ArrayList&lt;String&gt;&gt; map){</span>
-<span class="fc" id="L14">        this.map = map;</span>
-<span class="fc" id="L15">    }</span>
+<span class="fc" id="L15">    ArrayList&lt;String&gt; types=new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L16">    ArrayList&lt;ArrayList&lt;String&gt;&gt; data=new ArrayList&lt;ArrayList&lt;String&gt;&gt;();</span>
+<span class="fc" id="L17">    ArrayList&lt;String&gt; header=new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L18">    private HashMap&lt;Integer, ArrayList&lt;String&gt;&gt; map = new HashMap&lt;Integer,ArrayList&lt;String&gt;&gt;();</span>
+
+    /** Constructeur de Insertdata
+     * @param : une hashmap qui a comme key : le numéro de colonne et value : la ligne de arraylist de string
+     */
+<span class="fc" id="L23">    public Insertdata(HashMap&lt;Integer, ArrayList&lt;String&gt;&gt; map){</span>
+<span class="fc" id="L24">        this.map = map;</span>
+<span class="fc" id="L25">    }</span>
 
 
-<span class="nc" id="L18">    public Insertdata(){</span>
-        
-<span class="nc" id="L20">    }</span>
-
-
+    /**  fonction setType de type void : c'est pour enregistrer les types des donnees inserees
+     * @param : elle prend en parametre une arraylist de string de stype
+     */
     public void setType(ArrayList&lt;String&gt; types){
-<span class="nc" id="L24">        this.types = types;</span>
-<span class="nc" id="L25">    }</span>
+<span class="nc" id="L32">        this.types = types;</span>
+<span class="nc" id="L33">    }</span>
     
+    /** fonction getType c'est pour recuperer les types de dataframe
+     * @param : elle prend aucun parametre 
+     * @return : elle retourne une arraylist de types 
+     */
     public ArrayList getType(){
-<span class="fc" id="L28">        return this.types;</span>
+<span class="fc" id="L40">        return this.types;</span>
     }
 
+    /** recuperer les nom de colonnes de dataframe
+     */
     public ArrayList&lt;String&gt; getHeader(){
-        //ArrayList&lt;String&gt; header = new ArrayList&lt;String&gt;();
-<span class="fc bfc" id="L33" title="All 2 branches covered.">        for(ArrayList&lt;String&gt; ar : map.values()){</span>
-<span class="fc" id="L34">            header.add(ar.get(0));</span>
-<span class="fc" id="L35">        }</span>
-<span class="fc" id="L36">        return this.header;</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        for(ArrayList&lt;String&gt; ar : map.values()){</span>
+<span class="fc" id="L47">            header.add(ar.get(0));</span>
+        }
+<span class="fc" id="L49">        return this.header;</span>
     }
     
+    /** recuperer les donnees de dataframe
+    * @param : elle prend aucun parametre 
+    * @return : elle retourne une arraylist de donnees 
+    */
     public ArrayList&lt;ArrayList&lt;String&gt;&gt; getData() {
         ArrayList&lt;String&gt; list;
-<span class="fc" id="L41">        int i =0;</span>
-<span class="fc bfc" id="L42" title="All 2 branches covered.">        for(ArrayList&lt;String&gt; a2 : map.values()){</span>
-<span class="fc" id="L43">            list = new ArrayList&lt;&gt;(a2);</span>
-<span class="fc" id="L44">            list.remove(0);</span>
-<span class="fc" id="L45">            data.add(list);</span>
-<span class="fc" id="L46">        }</span>
-<span class="fc" id="L47">        return data;</span>
+<span class="fc" id="L58">        int i =0;</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        for(ArrayList&lt;String&gt; a2 : map.values()){</span>
+<span class="fc" id="L60">            list = new ArrayList&lt;&gt;(a2);</span>
+<span class="fc" id="L61">            list.remove(0);</span>
+<span class="fc" id="L62">            data.add(list);</span>
+        }
+<span class="fc" id="L64">        return data;</span>
     }
    	        
    

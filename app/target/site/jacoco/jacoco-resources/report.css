@@ -10,11 +10,7 @@ h1 {
 
 .breadcrumb {
   border:#d6d3ce 1px solid;
-<<<<<<< HEAD
-  padding:2px 4px;
-=======
   padding:2px 4px 2px 4px;
->>>>>>> main
 }
 
 .breadcrumb .info {
@@ -87,23 +83,14 @@ pre.source {
 }
 
 pre.source ol {
-<<<<<<< HEAD
-  margin-bottom: 0;
-  margin-top: 0;
-=======
   margin-bottom: 0px;
   margin-top: 0px;
->>>>>>> main
 }
 
 pre.source li {
   border-left: 1px solid #D6D3CE;
   color: #A0A0A0;
-<<<<<<< HEAD
-  padding-left: 0;
-=======
   padding-left: 0px;
->>>>>>> main
 }
 
 pre.source span.fc {
@@ -159,11 +146,7 @@ table.coverage thead {
 
 table.coverage thead td {
   white-space:nowrap;
-<<<<<<< HEAD
-  padding:2px 14px 0 6px;
-=======
   padding:2px 14px 0px 6px;
->>>>>>> main
   border-bottom:#b0b0b0 1px solid;
 }
 
@@ -198,11 +181,7 @@ table.coverage thead td.down {
 
 table.coverage tbody td {
   white-space:nowrap;
-<<<<<<< HEAD
-  padding:2px 6px;
-=======
   padding:2px 6px 2px 6px;
->>>>>>> main
   border-bottom:#d6d3ce 1px solid;
 }
 
@@ -228,11 +207,7 @@ table.coverage tbody td.ctr2 {
 
 table.coverage tfoot td {
   white-space:nowrap;
-<<<<<<< HEAD
-  padding:2px 6px;
-=======
   padding:2px 6px 2px 6px;
->>>>>>> main
 }
 
 table.coverage tfoot td.bar {

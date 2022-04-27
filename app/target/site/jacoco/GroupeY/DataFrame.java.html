@@ -5,329 +5,405 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import javax.xml.crypto.Data;
 
+/**
+ * Classe principale du dataframe
+ */
 public class DataFrame {
 
     private ArrayList&lt;String&gt; type;
     private ArrayList&lt;ArrayList&lt;String&gt;&gt; values;
     private ArrayList&lt;String&gt; header;
 
-<span class="fc" id="L17">    public DataFrame(HashMap&lt;Integer, ArrayList&lt;String&gt;&gt; map){</span>
-<span class="fc" id="L18">        Insertdata d = new Insertdata(map);</span>
-<span class="fc" id="L19">        values = d.getData();</span>
-<span class="fc" id="L20">        type = d.getType();</span>
-<span class="fc" id="L21">        header = d.getHeader();</span>
-<span class="fc" id="L22">    }</span>
+    /**
+     * Constructeur à partir de données entrées manuellement
+     * @param map : map contenant les données
+     */
+<span class="fc" id="L26">    public DataFrame(HashMap&lt;Integer, ArrayList&lt;String&gt;&gt; map){</span>
+<span class="fc" id="L27">        Insertdata d = new Insertdata(map);</span>
+<span class="fc" id="L28">        values = d.getData();</span>
+<span class="fc" id="L29">        type = d.getType();</span>
+<span class="fc" id="L30">        header = d.getHeader();</span>
+<span class="fc" id="L31">    }</span>
 
-<span class="fc" id="L24">    public DataFrame(String nomFichier) throws FileNotFoundException, IOException{</span>
-<span class="fc" id="L25">        Csvtodata d = new Csvtodata(nomFichier);</span>
-<span class="fc" id="L26">        values = d.getData();</span>
-<span class="fc" id="L27">        type = d.getType();</span>
-<span class="fc" id="L28">        header = d.getHeader();</span>
+    /**
+     * Constructeur à partir d'un fichier csv
+     * @param nomFichier path vers le fichier csv
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+<span class="fc" id="L39">    public DataFrame(String nomFichier) throws FileNotFoundException, IOException{</span>
+<span class="fc" id="L40">        Csvtodata d = new Csvtodata(nomFichier);</span>
+<span class="fc" id="L41">        values = d.getData();</span>
+<span class="fc" id="L42">        type = d.getType();</span>
+<span class="fc" id="L43">        header = d.getHeader();</span>
 
-<span class="fc" id="L30">    }</span>
+<span class="fc" id="L45">    }</span>
 
-<span class="fc" id="L32">    public DataFrame(HashMap&lt;Integer, ArrayList&lt;String&gt;&gt; map, ArrayList&lt;String&gt; type, ArrayList&lt;String&gt; header ){</span>
-<span class="fc" id="L33">        this.values = new ArrayList&lt;ArrayList&lt;String&gt;&gt;(map.values());</span>
-<span class="fc" id="L34">        this.type = type;</span>
-<span class="fc" id="L35">        this.header = header;</span>
-<span class="fc" id="L36">    }</span>
+    /**
+     * Constructeur 
+     * @param map map contenant les données
+     * @param type arraylist contenant le type de chaque colonne
+     * @param header arraylist contenant le nom de chaque colonne
+     */
+<span class="fc" id="L53">    public DataFrame(HashMap&lt;Integer, ArrayList&lt;String&gt;&gt; map, ArrayList&lt;String&gt; type, ArrayList&lt;String&gt; header ){</span>
+<span class="fc" id="L54">        this.values = new ArrayList&lt;ArrayList&lt;String&gt;&gt;(map.values());</span>
+<span class="fc" id="L55">        this.type = type;</span>
+<span class="fc" id="L56">        this.header = header;</span>
+<span class="fc" id="L57">    }</span>
+
+
     @Override
     public boolean equals(Object object){
-<span class="fc" id="L39">        DataFrame d = (DataFrame) object;</span>
-<span class="pc bpc" id="L40" title="1 of 4 branches missed.">        if(this!=null &amp;&amp; d==null){</span>
-<span class="fc" id="L41">            return false;</span>
+<span class="fc" id="L62">        DataFrame d = (DataFrame) object;</span>
+<span class="pc bpc" id="L63" title="1 of 4 branches missed.">        if(this!=null &amp;&amp; d==null){</span>
+<span class="fc" id="L64">            return false;</span>
         }
-<span class="fc bfc" id="L43" title="All 2 branches covered.">        if(this.getHeader().size()!= d.getHeader().size()){</span>
-<span class="fc" id="L44">            return false;</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if(this.getHeader().size()!= d.getHeader().size()){</span>
+<span class="fc" id="L67">            return false;</span>
         }
-<span class="fc bfc" id="L46" title="All 2 branches covered.">        for(int i=0;i&lt;header.size();i++){</span>
-<span class="fc bfc" id="L47" title="All 2 branches covered.">            if(!this.header.get(i).equals(d.getHeader().get(i))){</span>
-<span class="fc" id="L48">                return false;</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        for(int i=0;i&lt;header.size();i++){</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">            if(!this.header.get(i).equals(d.getHeader().get(i))){</span>
+<span class="fc" id="L71">                return false;</span>
             }
         }
-<span class="fc bfc" id="L51" title="All 2 branches covered.">        for(int i=0;i&lt;header.size();i++){</span>
-<span class="fc bfc" id="L52" title="All 2 branches covered.">            if(this.getValues().get(i).size()!= d.getValues().get(i).size()){</span>
-<span class="fc" id="L53">                return false;</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        for(int i=0;i&lt;header.size();i++){</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">            if(this.getValues().get(i).size()!= d.getValues().get(i).size()){</span>
+<span class="fc" id="L76">                return false;</span>
             }
-<span class="fc bfc" id="L55" title="All 2 branches covered.">            for(int j=0;j&lt;this.values.get(i).size();j++){</span>
-<span class="fc bfc" id="L56" title="All 2 branches covered.">                if(!this.values.get(i).get(j).equals(d.getValues().get(i).get(j))){</span>
-<span class="fc" id="L57">                    return false;</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">            for(int j=0;j&lt;this.values.get(i).size();j++){</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">                if(!this.values.get(i).get(j).equals(d.getValues().get(i).get(j))){</span>
+<span class="fc" id="L80">                    return false;</span>
                 }
             }   
         }
-<span class="fc" id="L61">        return true;</span>
+<span class="fc" id="L84">        return true;</span>
     }
   
 
+    /**
+     * Fonction qui insert une colonne dans le dataframe
+     * @param hmap map contenant les données qu'on veut ajouté
+     * @param types arraylist contenant le type de chaque colonne qu'on veut ajouté
+     */
     public void InsertColonne(HashMap&lt;Integer, ArrayList&lt;String&gt;&gt; hmap, ArrayList&lt;String&gt; types) {
 
-<span class="fc bfc" id="L67" title="All 2 branches covered.">        for(int i=0;i&lt;types.size();i++){</span>
-<span class="fc" id="L68">            type.add(types.get(i));</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        for(int i=0;i&lt;types.size();i++){</span>
+<span class="fc" id="L96">            type.add(types.get(i));</span>
         }
-        //System.out.println(&quot; datas&quot;+datas.toString());
       
-<span class="fc bfc" id="L72" title="All 2 branches covered.">        for(final Integer key : hmap.keySet()) {</span>
-<span class="fc" id="L73">            final ArrayList&lt;String&gt; value = hmap.get(key);</span>
-<span class="fc bfc" id="L74" title="All 2 branches covered.">            for(ArrayList&lt;String&gt; ar : hmap.values()){</span>
-<span class="fc" id="L75">                header.add(ar.get(0));</span>
-<span class="fc" id="L76">            }</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        for(final Integer key : hmap.keySet()) {</span>
+<span class="fc" id="L100">            final ArrayList&lt;String&gt; value = hmap.get(key);</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">            for(ArrayList&lt;String&gt; ar : hmap.values()){</span>
+<span class="fc" id="L102">                header.add(ar.get(0));</span>
+            }
             ArrayList&lt;String&gt; list;
-<span class="fc bfc" id="L78" title="All 2 branches covered.">            for(ArrayList&lt;String&gt; a2 : hmap.values()){</span>
-<span class="fc" id="L79">                list = new ArrayList&lt;&gt;(a2);</span>
-<span class="fc" id="L80">                list.remove(0);</span>
-<span class="fc" id="L81">                values.add(list);</span>
-<span class="fc" id="L82">            }</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">            for(ArrayList&lt;String&gt; a2 : hmap.values()){</span>
+<span class="fc" id="L106">                list = new ArrayList&lt;&gt;(a2);</span>
+<span class="fc" id="L107">                list.remove(0);</span>
+<span class="fc" id="L108">                values.add(list);</span>
+            }
             //data.add(value);
-<span class="fc" id="L84">        }</span>
-<span class="fc" id="L85">    }</span>
+        }
+<span class="fc" id="L112">    }</span>
 
+    /**
+     * Fonction qui insert une ligne dans le dataframe
+     * @param datas map contenant les données qu'on veut ajouté
+     */
     public void InsertLigne(ArrayList&lt;ArrayList&lt;String&gt;&gt; datas){
 
-<span class="fc" id="L89">        System.out.println(&quot; datas&quot;+datas.toString());</span>
+<span class="fc" id="L120">        System.out.println(&quot; datas&quot;+datas.toString());</span>
       
-<span class="fc bfc" id="L91" title="All 2 branches covered.">        for(int i=0;i&lt;datas.get(0).size();i++){     </span>
-<span class="fc bfc" id="L92" title="All 2 branches covered.">                for(int j=0;j&lt;header.size();j++){                   </span>
-<span class="fc" id="L93">                    values.get(j).add(datas.get(j).get(i));                </span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        for(int i=0;i&lt;datas.get(0).size();i++){     </span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">                for(int j=0;j&lt;header.size();j++){                   </span>
+<span class="fc" id="L124">                    values.get(j).add(datas.get(j).get(i));                </span>
                 }
             }
-<span class="fc" id="L96">    }</span>
-  public void AfficheDataFrame(){
+<span class="fc" id="L127">    }</span>
+  
+    /**
+     * Fonction qui affiche le dataframe
+     */
+    public void AfficheDataFrame(){
 
-<span class="fc bfc" id="L99" title="All 2 branches covered.">        for(int i=0;i&lt;values.size();i++){</span>
-<span class="fc" id="L100">            System.out.printf(&quot;%-30s&quot;,header.get(i));</span>
+<span class="fc bfc" id="L134" title="All 2 branches covered.">        for(int i=0;i&lt;values.size();i++){</span>
+<span class="fc" id="L135">            System.out.printf(&quot;%-30s&quot;,header.get(i));</span>
         }
-<span class="fc" id="L102">        System.out.format(&quot;\n&quot;);</span>
-<span class="fc bfc" id="L103" title="All 2 branches covered.">        for(int i=0;i&lt;values.get(0).size();i++){</span>
-<span class="fc bfc" id="L104" title="All 2 branches covered.">            for(int j=0;j&lt;values.size();j++){</span>
-<span class="fc" id="L105">                System.out.printf(&quot;%-30s&quot;, values.get(j).get(i));</span>
+<span class="fc" id="L137">        System.out.format(&quot;\n&quot;);</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        for(int i=0;i&lt;values.get(0).size();i++){</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">            for(int j=0;j&lt;values.size();j++){</span>
+<span class="fc" id="L140">                System.out.printf(&quot;%-30s&quot;, values.get(j).get(i));</span>
             }
-<span class="fc" id="L107">            System.out.format(&quot;\n&quot;);</span>
+<span class="fc" id="L142">            System.out.format(&quot;\n&quot;);</span>
         }
 
-<span class="fc" id="L110">        System.out.println(&quot;Affiche les types&quot;);</span>
-<span class="pc bpc" id="L111" title="1 of 2 branches missed.">        if(type!=null){</span>
-<span class="fc bfc" id="L112" title="All 2 branches covered.">            for(int i=0;i&lt;values.size();i++){</span>
-<span class="fc" id="L113">                System.out.printf(&quot;%-30s&quot;,type.get(i));</span>
+<span class="fc" id="L145">        System.out.println(&quot;Affiche les types&quot;);</span>
+<span class="pc bpc" id="L146" title="1 of 2 branches missed.">        if(type!=null){</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">            for(int i=0;i&lt;values.size();i++){</span>
+<span class="fc" id="L148">                System.out.printf(&quot;%-30s&quot;,type.get(i));</span>
             }
-<span class="fc" id="L115">            System.out.format(&quot;\n&quot;);</span>
+<span class="fc" id="L150">            System.out.format(&quot;\n&quot;);</span>
         }
 
-<span class="fc" id="L118">    }</span>
+<span class="fc" id="L153">    }</span>
 
+    /**
+     * Fonction qui affiche les n premiéres lignes
+     * @param n : nombres de lignes à afficher
+     */
     public void AfficheLesPrem(int n){
 
-<span class="fc bfc" id="L122" title="All 2 branches covered.">        for(int i=0;i&lt;values.size();i++){</span>
-<span class="fc" id="L123">            System.out.printf(&quot;%-30s&quot;,header.get(i));</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">        for(int i=0;i&lt;values.size();i++){</span>
+<span class="fc" id="L162">            System.out.printf(&quot;%-30s&quot;,header.get(i));</span>
         }
-<span class="fc" id="L125">        System.out.format(&quot;\n&quot;);</span>
-<span class="fc bfc" id="L126" title="All 2 branches covered.">        for(int i=0;i&lt;n;i++){</span>
-<span class="fc bfc" id="L127" title="All 2 branches covered.">            for(int j=0;j&lt;values.size();j++){</span>
-<span class="fc" id="L128">                System.out.printf(&quot;%-30s&quot;, values.get(j).get(i));</span>
+<span class="fc" id="L164">        System.out.format(&quot;\n&quot;);</span>
+<span class="fc bfc" id="L165" title="All 2 branches covered.">        for(int i=0;i&lt;n;i++){</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">            for(int j=0;j&lt;values.size();j++){</span>
+<span class="fc" id="L167">                System.out.printf(&quot;%-30s&quot;, values.get(j).get(i));</span>
             }
-<span class="fc" id="L130">            System.out.format(&quot;\n&quot;);</span>
+<span class="fc" id="L169">            System.out.format(&quot;\n&quot;);</span>
         }
-<span class="fc" id="L132">    }</span>
+<span class="fc" id="L171">    }</span>
 
+    /**
+     * Fonction qui affiche les n dérnieres lignes
+     * @param n : nombre de lignes à afficher
+     */
     public void AfficheLesDer(int n){
-<span class="fc bfc" id="L135" title="All 2 branches covered.">        for(int i=0;i&lt;values.size();i++){</span>
-<span class="fc" id="L136">            System.out.printf(&quot;%-30s&quot;,header.get(i));</span>
+<span class="fc bfc" id="L178" title="All 2 branches covered.">        for(int i=0;i&lt;values.size();i++){</span>
+<span class="fc" id="L179">            System.out.printf(&quot;%-30s&quot;,header.get(i));</span>
         }
-<span class="fc" id="L138">        System.out.format(&quot;\n&quot;);</span>
-<span class="fc bfc" id="L139" title="All 2 branches covered.">        for(int i=0;i&lt;n;i++){</span>
-<span class="fc bfc" id="L140" title="All 2 branches covered.">            for(int j=0;j&lt;values.size();j++){</span>
-<span class="fc" id="L141">                System.out.printf(&quot;%-30s&quot;, values.get(j).get(this.count(0)-1-i));</span>
+<span class="fc" id="L181">        System.out.format(&quot;\n&quot;);</span>
+<span class="fc bfc" id="L182" title="All 2 branches covered.">        for(int i=0;i&lt;n;i++){</span>
+<span class="fc bfc" id="L183" title="All 2 branches covered.">            for(int j=0;j&lt;values.size();j++){</span>
+<span class="fc" id="L184">                System.out.printf(&quot;%-30s&quot;, values.get(j).get(this.count(0)-1-i));</span>
             }
-<span class="fc" id="L143">            System.out.format(&quot;\n&quot;);</span>
+<span class="fc" id="L186">            System.out.format(&quot;\n&quot;);</span>
         }
-<span class="fc" id="L145">    }</span>
+<span class="fc" id="L188">    }</span>
+
 
     /**
      * fonction qui calcule la somme des elements d'une colonne
+     * @param ind indice de la colonne
+     * @return la somme des éléments de la colonne
      */
     public float sum(int ind){
-<span class="fc" id="L151">        float sum = 0;</span>
-<span class="pc bpc" id="L152" title="1 of 3 branches missed.">        switch (type.get(ind)){</span>
+<span class="fc" id="L197">        float sum = 0;</span>
+<span class="pc bpc" id="L198" title="1 of 3 branches missed.">        switch (type.get(ind)){</span>
             
             case &quot;Float&quot; :  
-<span class="fc bfc" id="L155" title="All 2 branches covered.">                for(String s : values.get(ind)){</span>
-<span class="fc" id="L156">                    sum = Float.parseFloat(s) + sum;</span>
-<span class="fc" id="L157">                }</span>
-<span class="fc" id="L158">                break;</span>
+<span class="fc bfc" id="L201" title="All 2 branches covered.">                for(String s : values.get(ind)){</span>
+<span class="fc" id="L202">                    sum = Float.parseFloat(s) + sum;</span>
+                }
+<span class="fc" id="L204">                break;</span>
             case &quot;Integer&quot; :  
-<span class="fc bfc" id="L160" title="All 2 branches covered.">                for(String s : values.get(ind)){</span>
-<span class="fc" id="L161">                    sum = Integer.parseInt(s) + sum;</span>
-<span class="fc" id="L162">                }</span>
-<span class="fc" id="L163">                break;</span>
+<span class="fc bfc" id="L206" title="All 2 branches covered.">                for(String s : values.get(ind)){</span>
+<span class="fc" id="L207">                    sum = Integer.parseInt(s) + sum;</span>
+                }
+<span class="fc" id="L209">                break;</span>
             default :
-<span class="nc" id="L165">                System.err.println(&quot;type de colonne non convenable&quot;);</span>
+<span class="nc" id="L211">                System.err.println(&quot;type de colonne non convenable&quot;);</span>
                 break;
        }
 
-<span class="fc" id="L169">       return sum;</span>
+<span class="fc" id="L215">       return sum;</span>
     }
+
 
     /**
      * fonction qui calcule la moyenne d'une colonne
+     * @param ind : indice de la colonne
+     * @return la moyenne des éléments de la colonne
      */
     public float moyenne(int ind){
-<span class="fc" id="L176">        float s = sum(ind);</span>
-<span class="fc" id="L177">        return s/values.get(ind).size();</span>
+<span class="fc" id="L225">        float s = sum(ind);</span>
+<span class="fc" id="L226">        return s/values.get(ind).size();</span>
     }
 
+
     /**
-     * foction qui calcule le minium d'une colonne
+     * foction qui calcule le minium d'une colonne 
+     * @param ind indice de la colonne
+     * @return minimum des éléments de la colonne
      */
     public float min(int ind){
-<span class="fc" id="L184">        float min  = Float.parseFloat(values.get(ind).get(0));</span>
-<span class="pc bpc" id="L185" title="1 of 3 branches missed.">        switch (type.get(ind)){</span>
+<span class="fc" id="L236">        float min  = Float.parseFloat(values.get(ind).get(0));</span>
+<span class="pc bpc" id="L237" title="1 of 3 branches missed.">        switch (type.get(ind)){</span>
             
             case &quot;Float&quot; :  
-<span class="fc bfc" id="L188" title="All 2 branches covered.">                for(String s : values.get(ind)){</span>
+<span class="fc bfc" id="L240" title="All 2 branches covered.">                for(String s : values.get(ind)){</span>
                    
-<span class="fc" id="L190">                    min = Math.min(Float.parseFloat(s), min);</span>
-<span class="fc" id="L191">                }</span>
-<span class="fc" id="L192">                break;</span>
+<span class="fc" id="L242">                    min = Math.min(Float.parseFloat(s), min);</span>
+                }
+<span class="fc" id="L244">                break;</span>
             case &quot;Integer&quot; :  
-<span class="fc bfc" id="L194" title="All 2 branches covered.">                for(String s : values.get(ind)){</span>
+<span class="fc bfc" id="L246" title="All 2 branches covered.">                for(String s : values.get(ind)){</span>
                     
-<span class="fc" id="L196">                    min = Math.min(Integer.parseInt(s),min);</span>
-<span class="fc" id="L197">                }</span>
-<span class="fc" id="L198">                break;</span>
+<span class="fc" id="L248">                    min = Math.min(Integer.parseInt(s),min);</span>
+                }
+<span class="fc" id="L250">                break;</span>
             default :
-<span class="nc" id="L200">                System.err.println(&quot;type de colonne non convenable&quot;);</span>
+<span class="nc" id="L252">                System.err.println(&quot;type de colonne non convenable&quot;);</span>
                 break;
     }
-<span class="fc" id="L203">        return min;</span>
+<span class="fc" id="L255">        return min;</span>
 
     }
 
+
     /**
-     * fonction qui calcule le max d'une colonne
+     * Fonction qui calcule le max d'une colonne
+     * @param ind indice de la colonne
+     * @return le maximum des éléments de la colonne
      */
     public float max(int ind){
-<span class="fc" id="L211">        float max = Float.parseFloat(values.get(ind).get(0));</span>
-<span class="pc bpc" id="L212" title="1 of 3 branches missed.">        switch (type.get(ind)){</span>
+<span class="fc" id="L266">        float max = Float.parseFloat(values.get(ind).get(0));</span>
+<span class="pc bpc" id="L267" title="1 of 3 branches missed.">        switch (type.get(ind)){</span>
             
             case &quot;Float&quot; :  
-<span class="fc bfc" id="L215" title="All 2 branches covered.">                for(String s : values.get(ind)){</span>
-<span class="fc" id="L216">                    max = Math.max(Float.parseFloat(s), max);</span>
-<span class="fc" id="L217">                }</span>
-<span class="fc" id="L218">                break;</span>
+<span class="fc bfc" id="L270" title="All 2 branches covered.">                for(String s : values.get(ind)){</span>
+<span class="fc" id="L271">                    max = Math.max(Float.parseFloat(s), max);</span>
+                }
+<span class="fc" id="L273">                break;</span>
             case &quot;Integer&quot; :  
-<span class="fc bfc" id="L220" title="All 2 branches covered.">                for(String s : values.get(ind)){</span>
-<span class="fc" id="L221">                    max = Math.max(Integer.parseInt(s),max);</span>
-<span class="fc" id="L222">                }</span>
-<span class="fc" id="L223">                break;</span>
+<span class="fc bfc" id="L275" title="All 2 branches covered.">                for(String s : values.get(ind)){</span>
+<span class="fc" id="L276">                    max = Math.max(Integer.parseInt(s),max);</span>
+                }
+<span class="fc" id="L278">                break;</span>
             default :
-<span class="nc" id="L225">                System.err.println(&quot;type de colonne non convenable&quot;);</span>
+<span class="nc" id="L280">                System.err.println(&quot;type de colonne non convenable&quot;);</span>
                 break;
     }
-<span class="fc" id="L228">        return max;</span>
+<span class="fc" id="L283">        return max;</span>
     }
 
+
     /**
-     * fonction qui calcule le nombre d'element dans une colonne
+     * Fonction qui calcule le nombre d'elements dans une colonne
+     * @param ind indice de la colonne
+     * @return le nombre d'éléments de la colonne
      */
     public int count(int ind){
-<span class="fc" id="L235">        return values.get(ind).size();</span>
+<span class="fc" id="L293">        return values.get(ind).size();</span>
     }
 
+
     /**
-     * fonction qui calcule la valeur absolue de chaque element d'une colonne donnee
+     * fonction qui calcule la valeur absolue de chaque element d'une colonne 
+     * @param ind indice de la colonne
+     * @return tableau contenant les valeurs absolues de chaque colonne
      */
     public float[] abs(int ind){
-<span class="fc" id="L242">        float[] fl = new float[count(ind)];</span>
-<span class="pc bpc" id="L243" title="1 of 3 branches missed.">        switch (type.get(ind)){</span>
+<span class="fc" id="L303">        float[] fl = new float[count(ind)];</span>
+<span class="pc bpc" id="L304" title="1 of 3 branches missed.">        switch (type.get(ind)){</span>
             
             case &quot;Float&quot; :  
-<span class="fc" id="L246">                int i =0;</span>
-<span class="fc bfc" id="L247" title="All 2 branches covered.">                for(String s : values.get(ind)){</span>
-<span class="fc" id="L248">                    fl[i] = Math.abs(Float.parseFloat(s));</span>
-<span class="fc" id="L249">                    i++;</span>
-<span class="fc" id="L250">                }</span>
-<span class="fc" id="L251">                break;</span>
+<span class="fc" id="L307">                int i =0;</span>
+<span class="fc bfc" id="L308" title="All 2 branches covered.">                for(String s : values.get(ind)){</span>
+<span class="fc" id="L309">                    fl[i] = Math.abs(Float.parseFloat(s));</span>
+<span class="fc" id="L310">                    i++;</span>
+                }
+<span class="fc" id="L312">                break;</span>
             case &quot;Integer&quot; :  
-<span class="fc" id="L253">                int j =0;</span>
-<span class="fc bfc" id="L254" title="All 2 branches covered.">                for(String s : values.get(ind)){</span>
-<span class="fc" id="L255">                    fl[j] = Math.abs(Integer.parseInt(s));</span>
-<span class="fc" id="L256">                    j++;</span>
-<span class="fc" id="L257">                }</span>
-<span class="fc" id="L258">                break;</span>
+<span class="fc" id="L314">                int j =0;</span>
+<span class="fc bfc" id="L315" title="All 2 branches covered.">                for(String s : values.get(ind)){</span>
+<span class="fc" id="L316">                    fl[j] = Math.abs(Integer.parseInt(s));</span>
+<span class="fc" id="L317">                    j++;</span>
+                }
+<span class="fc" id="L319">                break;</span>
             default :
-<span class="nc" id="L260">                System.err.println(&quot;type de colonne non convenable&quot;);</span>
+<span class="nc" id="L321">                System.err.println(&quot;type de colonne non convenable&quot;);</span>
                 break;
     }
-<span class="fc" id="L263">    return fl;</span>
+<span class="fc" id="L324">    return fl;</span>
     }
 
-    public ArrayList&lt;String&gt; getHeader(){
-<span class="fc" id="L267">        return this.header;</span>
-    }
-
-    public ArrayList&lt;String&gt; getType(){
-<span class="nc" id="L271">        return this.type;</span>
-    }
-
-    public ArrayList&lt;ArrayList&lt;String&gt;&gt; getValues(){
-<span class="fc" id="L275">        return this.values;</span>
-    }
     /**
-     * creation d'un nouveau dataframe a partie de noms de colonnes
+     * 
+     * @return retourn les noms de chaque colonne
      */
+    public ArrayList&lt;String&gt; getHeader(){
+<span class="fc" id="L332">        return this.header;</span>
+    }
+
+    /**
+     * 
+     * @return retourn le type de chaque colonne
+     */
+    public ArrayList&lt;String&gt; getType(){
+<span class="nc" id="L340">        return this.type;</span>
+    }
+
+    /**
+     * 
+     * @return retourn les données du dataframe
+     */
+    public ArrayList&lt;ArrayList&lt;String&gt;&gt; getValues(){
+<span class="fc" id="L348">        return this.values;</span>
+    }
+
+    
+    /**
+     * Creation d'un nouveau dataframe a partie de noms de colonnes
+     * @param noms tableau des noms des colonnes
+     * @return nouveau dataframe
+     */    
     public DataFrame CreationFromCol(String ... noms){
-<span class="fc" id="L281">        HashMap&lt;Integer, ArrayList&lt;String&gt;&gt; map = new HashMap&lt;Integer, ArrayList&lt;String&gt;&gt;();</span>
-<span class="fc" id="L282">        ArrayList&lt;String&gt; type = new ArrayList&lt;String&gt;();</span>
-<span class="fc" id="L283">        ArrayList&lt;String&gt; header = new ArrayList&lt;String&gt;();</span>
-<span class="fc" id="L284">        int j =0;</span>
-<span class="fc" id="L285">        int counter =0;</span>
-<span class="fc bfc" id="L286" title="All 2 branches covered.">        for(String s : this.header){</span>
-<span class="fc bfc" id="L287" title="All 2 branches covered.">            for(int i =0 ; i&lt;noms.length; i++){</span>
-<span class="fc bfc" id="L288" title="All 2 branches covered.">                if(s.equals(noms[i])){</span>
-<span class="fc" id="L289">                    map.put(j, values.get(counter));</span>
-<span class="fc" id="L290">                    type.add(this.type.get(counter));</span>
-<span class="fc" id="L291">                    header.add(this.header.get(counter));</span>
-<span class="fc" id="L292">                    j++;</span>
+<span class="fc" id="L358">        HashMap&lt;Integer, ArrayList&lt;String&gt;&gt; map = new HashMap&lt;Integer, ArrayList&lt;String&gt;&gt;();</span>
+<span class="fc" id="L359">        ArrayList&lt;String&gt; type = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L360">        ArrayList&lt;String&gt; header = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L361">        int j =0;</span>
+<span class="fc" id="L362">        int counter =0;</span>
+<span class="fc bfc" id="L363" title="All 2 branches covered.">        for(String s : this.header){</span>
+<span class="fc bfc" id="L364" title="All 2 branches covered.">            for(int i =0 ; i&lt;noms.length; i++){</span>
+<span class="fc bfc" id="L365" title="All 2 branches covered.">                if(s.equals(noms[i])){</span>
+<span class="fc" id="L366">                    map.put(j, values.get(counter));</span>
+<span class="fc" id="L367">                    type.add(this.type.get(counter));</span>
+<span class="fc" id="L368">                    header.add(this.header.get(counter));</span>
+<span class="fc" id="L369">                    j++;</span>
                 }
             }
-<span class="fc" id="L295">            counter++;</span>
-<span class="fc" id="L296">        }</span>
-<span class="fc" id="L297">        return new DataFrame(map,type, header);</span>
+<span class="fc" id="L372">            counter++;</span>
+        }
+<span class="fc" id="L374">        return new DataFrame(map,type, header);</span>
 
     }
 
+ 
     /**
-     * creation d'un nouveau dataframe a partires d'indices de lignes
+     * creation d'un nouveau dataframe à partir d'indices de lignes
+     * @param i tableau des indices de lignes
+     * @return nouveau dataframe
      */
-    
     public DataFrame CreationFromline(int ... i){
-<span class="fc" id="L306">        HashMap&lt;Integer, ArrayList&lt;String&gt;&gt; map = new HashMap&lt;Integer, ArrayList&lt;String&gt;&gt;();</span>
-<span class="fc" id="L307">        ArrayList&lt;String&gt; type = new ArrayList&lt;String&gt;();</span>
-<span class="fc" id="L308">        ArrayList&lt;String&gt; header = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L385">        HashMap&lt;Integer, ArrayList&lt;String&gt;&gt; map = new HashMap&lt;Integer, ArrayList&lt;String&gt;&gt;();</span>
+<span class="fc" id="L386">        ArrayList&lt;String&gt; type = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L387">        ArrayList&lt;String&gt; header = new ArrayList&lt;String&gt;();</span>
 
 
-<span class="fc bfc" id="L311" title="All 2 branches covered.">        for(int j=0; j&lt;this.header.size(); j++){</span>
-<span class="fc" id="L312">            ArrayList&lt;String&gt; val =   new ArrayList&lt;String&gt;();</span>
-<span class="fc bfc" id="L313" title="All 2 branches covered.">            for(int in : i){</span>
-<span class="fc" id="L314">                val.add(values.get(j).get(in));</span>
+<span class="fc bfc" id="L390" title="All 2 branches covered.">        for(int j=0; j&lt;this.header.size(); j++){</span>
+<span class="fc" id="L391">            ArrayList&lt;String&gt; val =   new ArrayList&lt;String&gt;();</span>
+<span class="fc bfc" id="L392" title="All 2 branches covered.">            for(int in : i){</span>
+<span class="fc" id="L393">                val.add(values.get(j).get(in));</span>
             }
-<span class="fc" id="L316">            map.put(j, val);</span>
+<span class="fc" id="L395">            map.put(j, val);</span>
         }   
 
 
-<span class="fc" id="L320">        type = this.type;</span>
-<span class="fc" id="L321">        header = this.header;</span>
-<span class="fc" id="L322">        return new DataFrame(map,type, header);</span>
+<span class="fc" id="L399">        type = this.type;</span>
+<span class="fc" id="L400">        header = this.header;</span>
+<span class="fc" id="L401">        return new DataFrame(map,type, header);</span>
     }
 
 
 
-    public void groupby(ArrayList&lt;String&gt; criteres, String op){
 
-        
-<span class="nc" id="L330">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
