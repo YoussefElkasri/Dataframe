@@ -31,9 +31,14 @@ Dans cette page on va essayer de valoriser notre bibliotheque qui est developpé
   <li>Inserer une nouvelle colonne </li></ul>
 
 ## Affichage 
-  <ul><li>Afficher les n derniers lignes <br />
+  <ul><li>Afficher les n derniers lignes </li>
   <li>Afficher les n premiers lignes </li></ul>
+  
+ ## Séléction 
+  <ul><li>Création d'un nouveau dataframe à partir de noms de colonnes</li>
+  <li>Création d'un nouveau dataframe à partir d'indices de lignes </li></ul>
 
+    
 ## JavaDoc
   Pour JavaDoc nous l'avons l'heberger avec le site web cree sur github [JavaDoc](https://youssefelkasri.github.io/Dataframe/GroupeY/package-summary.html)
 ## Operations arithmetique 
