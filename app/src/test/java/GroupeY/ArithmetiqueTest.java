@@ -15,10 +15,6 @@ import java.io.File;
  */
 public class ArithmetiqueTest 
 {
-    // DataFrame d;
-    // @Before
-
-
     @Test
     public void sumTest(){
         try{
