@@ -1,22 +1,28 @@
 package GroupeY;
 
 import java.io.*;
+import java.lang.reflect.Method;
 import java.util.*;
+/**
+*Class Csvtodata 
+* La deuxiéme methode d'insertion des donnees 
+*/
 public class Csvtodata {
 
 	private ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
     private HashMap<Integer, ArrayList<String>> map = new HashMap<Integer,ArrayList<String>>();
     private ArrayList<String> types = new ArrayList<String>();    
     private ArrayList<ArrayList<String>> ar = new ArrayList<ArrayList<String>>();
-    
-    
-    
-    /*Constructeur de CSVtodata
-     * 
+
+    /**
+     * Constructeur de CSVtodata
      * On lit un fichier csv graçe à son path 
-     * Et on stock les données dans une hashmap qui as comme key le numéro de colonne et value la ligne entant qu'arraylist de string
+     * Et on stock les données dans une hashmap qui a comme key le numéro de colonne et value la ligne entant qu'arraylist de string
+     * @param nom : le path vers le fichier csv 
+     * @throws FileNotFoundException
+     * @throws IOException
      */
-    
+
     public Csvtodata(String nom) throws FileNotFoundException, IOException{
     	String l = "";
 
@@ -78,18 +84,26 @@ public class Csvtodata {
     }
 
 
-	    //fonction qui retourne le nom de chaque colonne
-		public ArrayList<String> getHeader(){
-			ArrayList<String> header = new ArrayList<String>();
-			for(ArrayList<String> ar : map.values()){
-				header.add(ar.get(0));
-			}
-			return header;
+	    
+    /**
+     *
+     * @return le nom de chaque colonne 
+     */
+	public ArrayList<String> getHeader(){
+		ArrayList<String> header = new ArrayList<String>();
+		for(ArrayList<String> ar : map.values()){
+			header.add(ar.get(0));
 		}
+		return header;
+	}
 		 
     	        
     	        
-    //fonction qui vérfie si l'element est un int
+    /**
+     * fonction qui vérfie si l'element est un int
+     * @param str : le string qu'on veut tester
+     * @return true si le string est un int et false sinon
+     */
      private boolean isInt(String str) {
 
         try {
@@ -101,7 +115,12 @@ public class Csvtodata {
     }
     
     
-     //fonction qui vérfie si l'element est float
+    
+    /**
+     * fonction qui vérfie si l'element est float 
+     * @param str : le string qu'on veut tester
+     * @return true si le string est un float et false sinon
+     */
     private boolean isFloat(String str) {
 
         try {
@@ -113,7 +132,12 @@ public class Csvtodata {
     }
     	
     
-    //fonction qui vérifie si l'element est bool
+    
+    /**
+     * fonction qui vérifie si l'element est boolean 
+     * @param str le string qu'on veut tester
+     * @return true si le string est un boolean et false sinon
+     */
     private boolean isBool(String str) {
     	if(str.toLowerCase().equals("true") || str.toLowerCase().equals("false")) {
     		return true;
@@ -123,7 +147,10 @@ public class Csvtodata {
     }
     
     
-    //fonction qui retourn les données
+    /**
+     * 
+     * @return les données du csv
+     */
     public ArrayList<ArrayList<String>> getData() {
 		ArrayList<String> a3;
 		int i =0;
@@ -136,11 +163,12 @@ public class Csvtodata {
     }
     
     
-    //fonction qui retourn les types de chaque colonne
+    /**
+     * 
+     * @return le type de donnée de chaque colonne
+     */
     public ArrayList<String> getType(){
     	return this.types;
-    }
-    
-    
+    }    
 
 }
