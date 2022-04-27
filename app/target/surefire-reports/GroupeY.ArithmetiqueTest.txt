@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: GroupeY.ArithmetiqueTest
 -------------------------------------------------------------------------------
-Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.778 sec
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.253 sec
