@@ -12,8 +12,6 @@ import java.io.File;
 
 public class CreationTest 
 {
-    // DataFrame d;
-    // @Before
     @Test
     public void CreationFromColTest(){
         try{

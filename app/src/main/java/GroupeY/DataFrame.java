@@ -5,15 +5,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import javax.xml.crypto.Data;
 
+/**
+ * Classe principale du dataframe
+ */
 public class DataFrame {
 
     private ArrayList<String> type;
     private ArrayList<ArrayList<String>> values;
     private ArrayList<String> header;
 
+    /**
+     * Constructeur à partir de données entrées manuellement
+     * @param map : map contenant les données
+     */
     public DataFrame(HashMap<Integer, ArrayList<String>> map){
         Insertdata d = new Insertdata(map);
         values = d.getData();
@@ -21,6 +30,12 @@ public class DataFrame {
         header = d.getHeader();
     }
 
+    /**
+     * Constructeur à partir d'un fichier csv
+     * @param nomFichier path vers le fichier csv
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public DataFrame(String nomFichier) throws FileNotFoundException, IOException{
         Csvtodata d = new Csvtodata(nomFichier);
         values = d.getData();
@@ -29,11 +44,19 @@ public class DataFrame {
 
     }
 
+    /**
+     * Constructeur 
+     * @param map map contenant les données
+     * @param type arraylist contenant le type de chaque colonne
+     * @param header arraylist contenant le nom de chaque colonne
+     */
     public DataFrame(HashMap<Integer, ArrayList<String>> map, ArrayList<String> type, ArrayList<String> header ){
         this.values = new ArrayList<ArrayList<String>>(map.values());
         this.type = type;
         this.header = header;
     }
+
+
     @Override
     public boolean equals(Object object){
         DataFrame d = (DataFrame) object;
@@ -62,12 +85,16 @@ public class DataFrame {
     }
   
 
+    /**
+     * Fonction qui insert une colonne dans le dataframe
+     * @param hmap map contenant les données qu'on veut ajouté
+     * @param types arraylist contenant le type de chaque colonne qu'on veut ajouté
+     */
     public void InsertColonne(HashMap<Integer, ArrayList<String>> hmap, ArrayList<String> types) {
 
         for(int i=0;i<types.size();i++){
             type.add(types.get(i));
         }
-        //System.out.println(" datas"+datas.toString());
       
         for(final Integer key : hmap.keySet()) {
             final ArrayList<String> value = hmap.get(key);
@@ -84,6 +111,10 @@ public class DataFrame {
         }
     }
 
+    /**
+     * Fonction qui insert une ligne dans le dataframe
+     * @param datas map contenant les données qu'on veut ajouté
+     */
     public void InsertLigne(ArrayList<ArrayList<String>> datas){
 
         System.out.println(" datas"+datas.toString());
@@ -94,7 +125,11 @@ public class DataFrame {
                 }
             }
     }
-  public void AfficheDataFrame(){
+  
+    /**
+     * Fonction qui affiche le dataframe
+     */
+    public void AfficheDataFrame(){
 
         for(int i=0;i<values.size();i++){
             System.out.printf("%-30s",header.get(i));
@@ -117,6 +152,10 @@ public class DataFrame {
 
     }
 
+    /**
+     * Fonction qui affiche les n premiéres lignes
+     * @param n : nombres de lignes à afficher
+     */
     public void AfficheLesPrem(int n){
 
         for(int i=0;i<values.size();i++){
@@ -131,6 +170,10 @@ public class DataFrame {
         }
     }
 
+    /**
+     * Fonction qui affiche les n dérnieres lignes
+     * @param n : nombre de lignes à afficher
+     */
     public void AfficheLesDer(int n){
         for(int i=0;i<values.size();i++){
             System.out.printf("%-30s",header.get(i));
@@ -144,8 +187,11 @@ public class DataFrame {
         }
     }
 
+
     /**
      * fonction qui calcule la somme des elements d'une colonne
+     * @param ind indice de la colonne
+     * @return la somme des éléments de la colonne
      */
     public float sum(int ind){
         float sum = 0;
@@ -169,16 +215,22 @@ public class DataFrame {
        return sum;
     }
 
+
     /**
      * fonction qui calcule la moyenne d'une colonne
+     * @param ind : indice de la colonne
+     * @return la moyenne des éléments de la colonne
      */
     public float moyenne(int ind){
         float s = sum(ind);
         return s/values.get(ind).size();
     }
 
+
     /**
-     * foction qui calcule le minium d'une colonne
+     * foction qui calcule le minium d'une colonne 
+     * @param ind indice de la colonne
+     * @return minimum des éléments de la colonne
      */
     public float min(int ind){
         float min  = Float.parseFloat(values.get(ind).get(0));
@@ -204,8 +256,11 @@ public class DataFrame {
 
     }
 
+
     /**
-     * fonction qui calcule le max d'une colonne
+     * Fonction qui calcule le max d'une colonne
+     * @param ind indice de la colonne
+     * @return le maximum des éléments de la colonne
      */
     public float max(int ind){
         float max = Float.parseFloat(values.get(ind).get(0));
@@ -228,15 +283,21 @@ public class DataFrame {
         return max;
     }
 
+
     /**
-     * fonction qui calcule le nombre d'element dans une colonne
+     * Fonction qui calcule le nombre d'elements dans une colonne
+     * @param ind indice de la colonne
+     * @return le nombre d'éléments de la colonne
      */
     public int count(int ind){
         return values.get(ind).size();
     }
 
+
     /**
-     * fonction qui calcule la valeur absolue de chaque element d'une colonne donnee
+     * fonction qui calcule la valeur absolue de chaque element d'une colonne 
+     * @param ind indice de la colonne
+     * @return tableau contenant les valeurs absolues de chaque colonne
      */
     public float[] abs(int ind){
         float[] fl = new float[count(ind)];
@@ -263,20 +324,36 @@ public class DataFrame {
     return fl;
     }
 
+    /**
+     * 
+     * @return retourn les noms de chaque colonne
+     */
     public ArrayList<String> getHeader(){
         return this.header;
     }
 
+    /**
+     * 
+     * @return retourn le type de chaque colonne
+     */
     public ArrayList<String> getType(){
         return this.type;
     }
 
+    /**
+     * 
+     * @return retourn les données du dataframe
+     */
     public ArrayList<ArrayList<String>> getValues(){
         return this.values;
     }
+
+    
     /**
-     * creation d'un nouveau dataframe a partie de noms de colonnes
-     */
+     * Creation d'un nouveau dataframe a partie de noms de colonnes
+     * @param noms tableau des noms des colonnes
+     * @return nouveau dataframe
+     */    
     public DataFrame CreationFromCol(String ... noms){
         HashMap<Integer, ArrayList<String>> map = new HashMap<Integer, ArrayList<String>>();
         ArrayList<String> type = new ArrayList<String>();
@@ -298,10 +375,12 @@ public class DataFrame {
 
     }
 
+ 
     /**
-     * creation d'un nouveau dataframe a partires d'indices de lignes
+     * creation d'un nouveau dataframe à partir d'indices de lignes
+     * @param i tableau des indices de lignes
+     * @return nouveau dataframe
      */
-    
     public DataFrame CreationFromline(int ... i){
         HashMap<Integer, ArrayList<String>> map = new HashMap<Integer, ArrayList<String>>();
         ArrayList<String> type = new ArrayList<String>();
@@ -324,9 +403,6 @@ public class DataFrame {
 
 
 
-    public void groupby(ArrayList<String> criteres, String op){
 
-        
-    }
 
 }

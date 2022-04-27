@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<<<<<<< HEAD
+<testsuite tests="13" failures="0" name="GroupeY.ArithmetiqueTest" time="2.685" errors="0" skipped="0">
+=======
 <testsuite tests="13" failures="0" name="GroupeY.ArithmetiqueTest" time="2.781" errors="0" skipped="0">
+>>>>>>> main
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.15+10-LTS"/>
@@ -60,6 +64,21 @@
     <property name="java.vendor.version" value="Zulu11.56+19-CA"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
+<<<<<<< HEAD
+  <testcase classname="GroupeY.ArithmetiqueTest" name="sumTest" time="0.012"/>
+  <testcase classname="GroupeY.ArithmetiqueTest" name="sumIntTest" time="0.001"/>
+  <testcase classname="GroupeY.ArithmetiqueTest" name="afficheTest" time="2.561"/>
+  <testcase classname="GroupeY.ArithmetiqueTest" name="absTest" time="0"/>
+  <testcase classname="GroupeY.ArithmetiqueTest" name="maxIntTest" time="0"/>
+  <testcase classname="GroupeY.ArithmetiqueTest" name="absIntTest" time="0"/>
+  <testcase classname="GroupeY.ArithmetiqueTest" name="moyenneTest" time="0.005"/>
+  <testcase classname="GroupeY.ArithmetiqueTest" name="afficheLesPreTest" time="0.021"/>
+  <testcase classname="GroupeY.ArithmetiqueTest" name="maxTest" time="0.003"/>
+  <testcase classname="GroupeY.ArithmetiqueTest" name="minTest" time="0.004"/>
+  <testcase classname="GroupeY.ArithmetiqueTest" name="minIntTest" time="0.001"/>
+  <testcase classname="GroupeY.ArithmetiqueTest" name="countTest" time="0.003"/>
+  <testcase classname="GroupeY.ArithmetiqueTest" name="afficheLesDerTest" time="0.074"/>
+=======
   <testcase classname="GroupeY.ArithmetiqueTest" name="sumTest" time="0.005"/>
   <testcase classname="GroupeY.ArithmetiqueTest" name="sumIntTest" time="0.001"/>
   <testcase classname="GroupeY.ArithmetiqueTest" name="afficheTest" time="2.707"/>
@@ -73,4 +92,5 @@
   <testcase classname="GroupeY.ArithmetiqueTest" name="minIntTest" time="0"/>
   <testcase classname="GroupeY.ArithmetiqueTest" name="countTest" time="0"/>
   <testcase classname="GroupeY.ArithmetiqueTest" name="afficheLesDerTest" time="0.054"/>
+>>>>>>> main
 </testsuite>
