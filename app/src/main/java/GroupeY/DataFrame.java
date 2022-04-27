@@ -11,9 +11,7 @@ public class DataFrame {
 
     private ArrayList<String> type;
     private ArrayList<ArrayList<String>> values;
-    private ArrayList<ArrayList<String>> data;
     private ArrayList<String> header;
-    private HashMap<Integer, ArrayList<String>> map;
 
     public DataFrame(HashMap<Integer, ArrayList<String>> map){
         Insertdata d = new Insertdata(map);
@@ -38,13 +36,10 @@ public class DataFrame {
     @Override
     public boolean equals(Object object){
         DataFrame d = (DataFrame) object;
-        if(this==null && d==null){
-            return true;
-        }
-        if(this==null && d!=null){
+        if(this!=null && d==null){
             return false;
         }
-        if(this!=null && d==null){
+        if(this.getHeader().size()!= d.getHeader().size()){
             return false;
         }
         for(int i=0;i<header.size();i++){
@@ -53,7 +48,10 @@ public class DataFrame {
             }
         }
         for(int i=0;i<header.size();i++){
-            for(int j=0;i<this.values.get(i).size();j++){
+            if(this.getValues().get(i).size()!= d.getValues().get(i).size()){
+                return false;
+            }
+            for(int j=0;j<this.values.get(i).size();j++){
                 if(!this.values.get(i).get(j).equals(d.getValues().get(i).get(j))){
                     return false;
                 }
@@ -72,7 +70,6 @@ public class DataFrame {
       
         for(final Integer key : hmap.keySet()) {
             final ArrayList<String> value = hmap.get(key);
-            map.put(key,value);
             for(ArrayList<String> ar : hmap.values()){
                 header.add(ar.get(0));
             }
@@ -80,7 +77,7 @@ public class DataFrame {
             for(ArrayList<String> a2 : hmap.values()){
                 list = new ArrayList<>(a2);
                 list.remove(0);
-                data.add(list);
+                values.add(list);
             }
             //data.add(value);
         }
@@ -92,58 +89,45 @@ public class DataFrame {
       
         for(int i=0;i<datas.get(0).size();i++){     
                 for(int j=0;j<header.size();j++){                   
-                    data.get(j).add(datas.get(j).get(i));                
+                    values.get(j).add(datas.get(j).get(i));                
                 }
             }
     }
+  public void AfficheDataFrame(){
 
-    public void AfficheDataFrame(){
-        int l=0;
-        String key="    ";
-        String value="    ";
-
-       for (int i=0;i<header.size();i++) {
-        key=key.concat("    "+header.get(i));   
+        for(int i=0;i<values.size();i++){
+            System.out.printf("%-30s",header.get(i));
         }
-        System.out.println("  "+key);
-
-        for(int i=0;i<data.get(0).size();i++){
-            
-                value="";
-                
-                for(int j=0;j<data.size();j++){    
-                    value=value.concat("    "+data.get(j).get(i));
-             
-                }
-                System.out.println("  "+l+value);
-                l++;
+        System.out.format("\n");
+        for(int i=0;i<values.get(0).size();i++){
+            for(int j=0;j<values.size();j++){
+                System.out.printf("%-30s", values.get(j).get(i));
             }
+            System.out.format("\n");
+        }
+
+        System.out.println("Affiche les types");
+        if(type!=null){
+            for(int i=0;i<values.size();i++){
+                System.out.printf("%-30s",type.get(i));
+            }
+            System.out.format("\n");
+        }
 
     }
 
     public void AfficheLesPrem(int n){
 
-        int l=0;
-        String key="    ";
-        String value="    ";
-        
-
-       for (int i=0;i<header.size();i++) {
-        key=key.concat("    "+header.get(i));   
+        for(int i=0;i<values.size();i++){
+            System.out.printf("%-30s",header.get(i));
         }
-        System.out.println("    "+key);
-
-        for(int i=0;i<n;i++){           
-                value="     ";
-                for(int j=0;j<data.size();j++){    
-                    value=value.concat("    "+data.get(j).get(i));
-             
-                }
-                System.out.println(" "+l+value);
-                l++;
+        System.out.format("\n");
+        for(int i=0;i<n;i++){
+            for(int j=0;j<values.size();j++){
+                System.out.printf("%-30s", values.get(j).get(i));
             }
-
-
+            System.out.format("\n");
+        }
     }
 
     public void AfficheLesDer(int n){

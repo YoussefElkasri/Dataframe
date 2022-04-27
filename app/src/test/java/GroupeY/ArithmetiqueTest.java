@@ -30,6 +30,19 @@ public class ArithmetiqueTest
         }
 
     }
+
+        @Test
+    public void sumIntTest(){
+        try{
+            DataFrame d = new DataFrame("src/test/resources/data.csv");
+            int res = (int)d.sum(2);
+            assertEquals(res, 69);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Test
     public void moyenneTest(){
         try{
@@ -51,12 +64,36 @@ public class ArithmetiqueTest
             e.printStackTrace();
         }
     }
+
+            @Test
+    public void minIntTest(){
+        try{
+            DataFrame d = new DataFrame("src/test/resources/data.csv");
+            int res = (int)d.min(2);
+            assertEquals(res, 22);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Test
     public void maxTest(){
         try{
             DataFrame d = new DataFrame("src/test/resources/annual_precipitation.csv");
             float res = d.max(3);
             assertEquals(res, 112.9, 0.1);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+        @Test
+    public void maxIntTest(){
+        try{
+            DataFrame d = new DataFrame("src/test/resources/data.csv");
+            int res = (int)d.max(2);
+            assertEquals(res, 24);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,6 +109,34 @@ public class ArithmetiqueTest
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void absTest(){
+        try{
+            DataFrame d = new DataFrame("src/test/resources/annual_precipitation.csv");
+            float[] res = d.abs(5);
+            for(int i=0;i<res.length;i++){
+                assertTrue(res[i]>=0);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void absIntTest(){
+        try{
+            DataFrame d = new DataFrame("src/test/resources/data.csv");
+            float[] res = d.abs(2);
+            for(int i=0;i<res.length;i++){
+                assertTrue(res[i]>=0);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @Test
     public void afficheTest(){
         try{

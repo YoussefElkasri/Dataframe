@@ -19,7 +19,7 @@ public class App
 {
     public static void main( String[] args ) throws FileNotFoundException, IOException
     {   
-
+/*
         boolean exit=false;
         boolean exit_colonne=false;
         boolean exit_donnee=false;
@@ -145,6 +145,6 @@ public class App
 
         }
         
-        
+        */
     }
 }

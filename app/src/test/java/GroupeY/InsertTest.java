@@ -21,42 +21,39 @@ public class InsertTest {
      */
 @Test
     public void testDeuxConstruicteur(){
-        HashMap<String, ArrayList<String>> map = new HashMap<String,ArrayList<String>>();
+        HashMap<Integer, ArrayList<String>> map = new HashMap<Integer,ArrayList<String>>();
         ArrayList<String> list1=new ArrayList<String>();
         ArrayList<String> list2=new ArrayList<String>();
         ArrayList<String> list3=new ArrayList<String>();
 
-
+        list1.add("nom");
         list1.add("josef");
         list1.add("ran");
         list1.add("mattiche");
-        map.put("nom",list1);
+        map.put(0,list1);
 
+        list2.add("annee");
         list2.add("1998");
         list2.add("1999");
         list2.add("2000");
-        map.put("annee",list2);
+        map.put(1,list2);
 
 
+        list3.add("age");
+        list3.add("24");
         list3.add("23");
-        list3.add("53");
-        list3.add("35");
-        map.put("age",list3);
+        list3.add("22");
+        map.put(2,list3);
 
         ArrayList<String> types = new ArrayList<String>();
         types.add("String");
         types.add("Integer");
-
-        String [][]data = {{"nom", "josef", "ran", "mattiche"},{"annee","1998","1999","2000"}};
+        types.add("Integer");
         DataFrame d = new DataFrame(map);
         try{
-            DataFrame dAfter = new DataFrame("/Users/cr/M1/DevOp/Dataframe/data.csv");
+            DataFrame dAfter = new DataFrame("src/test/resources/data.csv");
 
-            for(int i=0;i<d.getHeader().size();i++){
-                //System.out.println("d : "+d.getHeader().get(i));
-                //System.out.println("csv : "+dAfter.getHeader().get(i));
-            }
-            //assertEquals("dataAfter insert", d, dAfter);
+            assertEquals("dataAfter insert", d, dAfter);
         }catch (Exception e) {
             e.printStackTrace();
            
@@ -70,9 +67,137 @@ public class InsertTest {
      * @throws IOException
      * @throws FileNotFoundException
      */
-    public void testMethod2() throws FileNotFoundException, IOException
+    @Test
+    public void testInsertLigne() throws FileNotFoundException, IOException
     {
-     //   DataFrame d = new DataFrame("data.txt");
+        ArrayList<String> list1=new ArrayList<String>();
+        ArrayList<String> list2=new ArrayList<String>();
+        ArrayList<String> list3=new ArrayList<String>();
+        ArrayList<ArrayList< String>> list=new ArrayList<ArrayList< String>>();
+
+        list1.add("toto");
+        list2.add("2001");
+        list3.add("21");
+        list.add(list1);
+        list.add(list2);
+        list.add(list3);
+       try{
+            DataFrame d = new DataFrame("src/test/resources/data.csv");
+            DataFrame dAfter = new DataFrame("src/test/resources/dataAddLigne.csv");
+            d.InsertLigne(list);
+            assertEquals("testInsertLigne", d, dAfter);
+        }catch (Exception e) {
+            e.printStackTrace();
+           
+        }
+        
        // assertTrue( true );
     }
+    @Test
+        public void testInsertColonne() throws FileNotFoundException, IOException
+    {
+        ArrayList<String> list=new ArrayList<String>();
+        HashMap<Integer, ArrayList<String>> map = new HashMap<Integer,ArrayList<String>>();
+
+        list.add("address");
+        list.add("Grenoble");
+        list.add("Paris");
+        list.add("Lyon");
+        map.put(0, list);
+        ArrayList<String> types = new ArrayList<String>();
+        types.add("String");
+       try{
+            DataFrame d = new DataFrame("src/test/resources/data.csv");
+            DataFrame dAfter = new DataFrame("src/test/resources/dataAddColonne.csv");
+            d.InsertColonne(map, types);
+            assertEquals("testInsertLigne", d, dAfter);
+        }catch (Exception e) {
+            e.printStackTrace();
+           
+        }
+        
+    }
+
+    @Test
+        public void testNegInsertColonne() throws FileNotFoundException, IOException
+    {
+        ArrayList<String> list=new ArrayList<String>();
+        HashMap<Integer, ArrayList<String>> map = new HashMap<Integer,ArrayList<String>>();
+
+        list.add("addressF");
+        list.add("Grenoble");
+        list.add("Paris");
+        list.add("Lyon");
+        map.put(0, list);
+        ArrayList<String> types = new ArrayList<String>();
+        types.add("String");
+       try{
+            DataFrame d = new DataFrame("src/test/resources/data.csv");
+            DataFrame dAfter = new DataFrame("src/test/resources/dataAddColonne.csv");
+            d.InsertColonne(map, types);
+            assertFalse(d.equals(dAfter));
+        }catch (Exception e) {
+            e.printStackTrace();
+           
+        }
+        
+    }
+
+    @Test
+    public void testNegInsertColonne2() throws FileNotFoundException, IOException
+    {
+        ArrayList<String> list=new ArrayList<String>();
+        HashMap<Integer, ArrayList<String>> map = new HashMap<Integer,ArrayList<String>>();
+
+        list.add("address");
+        list.add("Grenoble?");
+        list.add("Paris");
+        list.add("Lyon");
+        map.put(0, list);
+        ArrayList<String> types = new ArrayList<String>();
+        types.add("String");
+       try{
+            DataFrame d = new DataFrame("src/test/resources/data.csv");
+            DataFrame dAfter = new DataFrame("src/test/resources/dataAddColonne.csv");
+            d.InsertColonne(map, types);
+            assertFalse(d.equals(dAfter));
+        }catch (Exception e) {
+            e.printStackTrace();
+           
+        }
+        
+    }
+
+    @Test
+        public void testNull() throws FileNotFoundException, IOException
+    {
+       try{
+            DataFrame d = new DataFrame("src/test/resources/data.csv");
+            DataFrame dnull = null;
+            assertFalse(d.equals(dnull));
+        }catch (Exception e) {
+            e.printStackTrace();
+           
+        }
+        
+    }
+
+
+    @Test
+        public void testNeg() throws FileNotFoundException, IOException
+    {
+       try{
+            DataFrame d = new DataFrame("src/test/resources/data.csv");
+            DataFrame d2 = new DataFrame("src/test/resources/dataAddColonne.csv");
+            DataFrame d3 = new DataFrame("src/test/resources/dataAddLigne.csv");
+            assertFalse(d.equals(d2));
+            assertFalse(d2.equals(d3));
+            assertFalse(d.equals(d3));
+        }catch (Exception e) {
+            e.printStackTrace();
+           
+        }
+        
+    }
+
 }
